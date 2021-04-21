@@ -3,9 +3,19 @@
     Главная страница
 </title>
 <style>
-
+    .hint {
+        padding: 0 1rem;
+    }
 </style>
 <link rel="stylesheet" href="styles.css">
+
+<?php
+$config = include('config.php');
+
+$connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
+or die('Не удалось соединиться: ' . pg_last_error());
+?>
+
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
     <tr>
@@ -41,7 +51,93 @@
                 </a>
             </ul>
         </td>
-        <td class="content center-zone">center</td>
+        <td class="content center-zone curved" style="vertical-align: top">
+            <table>
+                <tr>
+                    <td colspan="6">
+                        <p class="info" style="font-style: normal; font-weight: bold; font-size: 4em;">
+                            Добро пожаловать в SilverLink</p>
+                    </td>
+                </tr>
+                <tr id="hints">
+                    <td style="width: 5rem;"></td>
+                    <td id="hint-delivery" class="hint curved" style="width: 20%">
+                        <table style="border-spacing: 0">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Бесплатная
+                                        доставка</p>
+                                </td>
+                            </tr>
+                            <tr rowspan="2">
+                                <td>
+                                    <img src="resources/delivery.svg" width="50" style="margin-bottom: 0.5rem">
+                                </td>
+                                <td colspan="2">
+                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Вы можете посмотреть возможные
+                                        способы и стоимость доставки в вашем городе.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="hint-stock" class="hint curved" style="width: 20%">
+                        <table style="border-spacing: 0">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Всегда в наличии</p>
+                                </td>
+                            </tr>
+                            <tr rowspan="2">
+                                <td>
+                                    <img src="resources/warehouse.svg" width="50" style="margin-bottom: 0.5rem">
+                                </td>
+                                <td colspan="2">
+                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Вы всегда можете быть уверены
+                                        в наличии товаров на складе.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="hint-contacts" class="hint curved" style="width: 20%">
+                        <table style="border-spacing: 0">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Всегда на связи</p>
+                                </td>
+                            </tr>
+                            <tr rowspan="2">
+                                <td>
+                                    <img src="resources/contacts.svg" width="50" style="margin-bottom: 0.5rem">
+                                </td>
+                                <td colspan="2">
+                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Мы всегда доступны для связи и
+                                        готовы ответить на любые ваши вопросы.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="hint-prices" class="hint curved" style="width: 20%">
+                        <table style="border-spacing: 0">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Самые лучшие цены</p>
+                                </td>
+                            </tr>
+                            <tr rowspan="2">
+                                <td>
+                                    <img src="resources/wallet.svg" width="50" style="margin-bottom: 0.5rem">
+                                </td>
+                                <td colspan="2">
+                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Наши цены всегда демократичны
+                                        и не будут в тяжесть Вашему кошельку.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 5rem;"></td>
+                </tr>
+            </table>
+        </td>
         <td class="right-zone">
             <ul class="menu">
                 <a href="#">

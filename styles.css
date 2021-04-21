@@ -10,17 +10,20 @@ table {
     width: 100%;
 }
 
-td {
-    border: 2px dashed black;
-}
+/*td {*/
+/*    border: 2px dashed black;*/
+/*}*/
 
 td.curved {
     border-radius: 15px;
 }
 
 a, p {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     text-decoration: none;
     color: inherit;
+
+    word-wrap: normal;
 }
 
 .content {
@@ -28,12 +31,12 @@ a, p {
 }
 
 .center-zone {
-    width: 70%;
+    width: 100%;
     text-align: center;
 }
 
 .left-zone, .right-zone {
-    width: 15%;
+    /*width: 5%;*/
 }
 
 td.header[colspan="3"], td.footer[colspan="3"] {
@@ -42,6 +45,10 @@ td.header[colspan="3"], td.footer[colspan="3"] {
 
 .info {
     text-align: center;
+}
+
+.hint {
+    background-color: #D9362F;
 }
 
 .footer {
@@ -53,7 +60,6 @@ td.header[colspan="3"], td.footer[colspan="3"] {
 }
 
 p.info {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-style: italic;
     font-weight: lighter;
     font-size: 20px;
@@ -96,8 +102,7 @@ p.info {
     position: absolute;
     top: 50px;
     width: 200px;
-+
-    font-size: 30px;
++ font-size: 30 px;
     text-align: right;
 
     transition: transform 0.7s;
