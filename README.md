@@ -1,2 +1,2 @@
-# Проект Сайт на PHP
+# Проект Сайта на PHP
 Web Development project on PHP.
