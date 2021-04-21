@@ -1,2 +1,2 @@
-# e_shop_php
+# Проект Сайт на PHP
 Web Development project on PHP.
