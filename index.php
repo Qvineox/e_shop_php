@@ -5,7 +5,46 @@
 <style>
     .hint {
         padding: 0 1rem;
+        pointer-events: none;
+        background: #FF6673;
     }
+
+    .zone-header {
+        text-align: start;
+        color: #434343;
+        font-weight: lighter;
+        font-size: 4rem;
+        margin: 0;
+    }
+
+    .news-article {
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+        /*background-blend-mode: lighten;*/
+        height: 5rem;
+        width: 100%;
+        border: 1px solid grey;
+        text-align: start;
+    }
+
+    .news-header {
+        margin: 5px 0 0 5px;
+        font-size: 2rem;
+        color: #434343;
+    }
+
+    .news-text {
+        margin: 1px 5px;
+        font-size: 1.2rem;
+        color: #434343;
+        width: 500px;
+    }
+
+    .news-date {
+        margin: 1px 5px;
+        font-size: 1rem;
+        color: grey;
+    }
+
 </style>
 <link rel="stylesheet" href="styles.css">
 
@@ -18,8 +57,19 @@ or die('Не удалось соединиться: ' . pg_last_error());
 
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
-    <tr>
-        <td class="header" colspan="3">header</td>
+    <tr style="align-content: center">
+        <ul class="bin-article">
+            <a href="#">
+                <li>
+                    <img src="resources/basket.svg">
+                    <p class="bin-summary" style="margin: 5px 2px">
+                        3 товара <br> 6700 рублей
+                    </p>
+                </li>
+            </a>
+        </ul>
+        <img src="resources/sun.svg">
+
     </tr>
     <tr>
         <td class="left-zone">
@@ -53,98 +103,192 @@ or die('Не удалось соединиться: ' . pg_last_error());
         </td>
         <td class="content center-zone curved" style="vertical-align: top">
             <table>
-                <tr>
-                    <td colspan="6">
-                        <p class="info" style="font-style: normal; font-weight: bold; font-size: 4em;">
-                            Добро пожаловать в SilverLink</p>
-                    </td>
-                </tr>
-                <tr id="hints">
-                    <td style="width: 5rem;"></td>
-                    <td id="hint-delivery" class="hint curved" style="width: 20%">
-                        <table style="border-spacing: 0">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Бесплатная
-                                        доставка</p>
-                                </td>
-                            </tr>
-                            <tr rowspan="2">
-                                <td>
-                                    <img src="resources/delivery.svg" width="50" style="margin-bottom: 0.5rem">
-                                </td>
-                                <td colspan="2">
-                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Вы можете посмотреть возможные
-                                        способы и стоимость доставки в вашем городе.</p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td id="hint-stock" class="hint curved" style="width: 20%">
-                        <table style="border-spacing: 0">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Всегда в наличии</p>
-                                </td>
-                            </tr>
-                            <tr rowspan="2">
-                                <td>
-                                    <img src="resources/warehouse.svg" width="50" style="margin-bottom: 0.5rem">
-                                </td>
-                                <td colspan="2">
-                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Вы всегда можете быть уверены
-                                        в наличии товаров на складе.</p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td id="hint-contacts" class="hint curved" style="width: 20%">
-                        <table style="border-spacing: 0">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Всегда на связи</p>
-                                </td>
-                            </tr>
-                            <tr rowspan="2">
-                                <td>
-                                    <img src="resources/contacts.svg" width="50" style="margin-bottom: 0.5rem">
-                                </td>
-                                <td colspan="2">
-                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Мы всегда доступны для связи и
-                                        готовы ответить на любые ваши вопросы.</p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td id="hint-prices" class="hint curved" style="width: 20%">
-                        <table style="border-spacing: 0">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="info" style="text-align: start; padding-top: 0.6rem">Самые лучшие цены</p>
-                                </td>
-                            </tr>
-                            <tr rowspan="2">
-                                <td>
-                                    <img src="resources/wallet.svg" width="50" style="margin-bottom: 0.5rem">
-                                </td>
-                                <td colspan="2">
-                                    <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Наши цены всегда демократичны
-                                        и не будут в тяжесть Вашему кошельку.</p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td style="width: 5rem;"></td>
-                </tr>
+                <div id="Hints">
+                    <tr id="hints">
+                        <td style="width: 0;"></td>
+                        <td id="hint-delivery" class="hint curved">
+                            <table style="border-spacing: 0">
+                                <tr>
+                                    <td colspan="3">
+                                        <p class="info" style="text-align: start; padding-top: 0.6rem">Бесплатная
+                                            доставка</p>
+                                    </td>
+                                </tr>
+                                <tr rowspan="2">
+                                    <td>
+                                        <img src="resources/delivery.svg" width="50" style="margin-bottom: 0.5rem">
+                                    </td>
+                                    <td colspan="2">
+                                        <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Вы можете посмотреть
+                                            возможные
+                                            способы и стоимость доставки в вашем городе.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 1rem;"></td>
+                        <td id="hint-stock" class="hint curved">
+                            <table style="border-spacing: 0">
+                                <tr>
+                                    <td colspan="3">
+                                        <p class="info" style="text-align: start; padding-top: 0.6rem">Всегда в
+                                            наличии</p>
+                                    </td>
+                                </tr>
+                                <tr rowspan="2">
+                                    <td>
+                                        <img src="resources/warehouse.svg" width="50" style="margin-bottom: 0.5rem">
+                                    </td>
+                                    <td colspan="2">
+                                        <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Вы всегда можете быть
+                                            уверены
+                                            в наличии товаров на складе.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 1rem;"></td>
+                        <td id="hint-contacts" class="hint curved">
+                            <table style="border-spacing: 0">
+                                <tr>
+                                    <td colspan="3">
+                                        <p class="info" style="text-align: start; padding-top: 0.6rem">Всегда на
+                                            связи</p>
+                                    </td>
+                                </tr>
+                                <tr rowspan="2">
+                                    <td>
+                                        <img src="resources/contacts.svg" width="50" style="margin-bottom: 0.5rem">
+                                    </td>
+                                    <td colspan="2">
+                                        <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Мы всегда доступны для
+                                            связи и
+                                            готовы ответить на любые ваши вопросы.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 1rem;"></td>
+                        <td id="hint-prices" class="hint curved">
+                            <table style="border-spacing: 0">
+                                <tr>
+                                    <td colspan="3">
+                                        <p class="info" style="text-align: start; padding-top: 0.6rem">Самые лучшие
+                                            цены</p>
+                                    </td>
+                                </tr>
+                                <tr rowspan="2">
+                                    <td>
+                                        <img src="resources/wallet.svg" width="50" style="margin-bottom: 0.5rem">
+                                    </td>
+                                    <td colspan="2">
+                                        <p style="margin-left: 0.6rem; margin-bottom: 0.5rem">Наши цены всегда
+                                            демократичны
+                                            и не будут в тяжесть Вашему кошельку.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 0;"></td>
+                    </tr>
+                </div>
+                <div id="News">
+                    <tr>
+                        <td colspan="9">
+                            <p class="zone-header">Новости</p>
+                            <hr class="solid">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9">
+                            <table>
+                                <tr style="vertical-align: top">
+                                    <?php
+                                    $query = 'SELECT * FROM article ORDER BY date DESC LIMIT 3';
+                                    $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+
+                                    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                        echo "<td><table><tr><td align=\"center\" class=\"news-article curved\"
+                                                style=\"width: auto; padding: 5px 5px\">
+                                                <img src='images/" . $line['image'] . "'
+//                                                 изображения 560 * 120
+                                                     style=\"width: 560px;
+                                                     height: auto;
+                                                     border-radius: 15px;\">
+                                                <p class=\"news-header\">{$line['header']}</p>
+                                                <p class=\"news-date\">{$line['date']}</p>
+                                                <p class=\"news-text\">{$line['text']}</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>";
+                                    }
+                                    ?>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </div>
+                <div id="Popular">
+                    <tr>
+                        <td colspan="9">
+                            <p class="zone-header">Популярные товары</p>
+                            <hr class="solid">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9">
+                            <table>
+                                <tr style="vertical-align: top">
+                                    <?php
+                                    $query = 'SELECT item.id           as item_id,
+                                                       item.name         as item_name,
+                                                       item.price        as item_price,
+                                                       item.image        as item_image,
+                                                       manufacturer.name as manufacturer_name
+                                                FROM item
+                                                         LEFT JOIN manufacturer ON manufacturer.id = item.manufacturer
+                                                WHERE item.id in (20, 21, 22, 23, 24, 25, 16, 17);';
+                                    $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+
+                                    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                        echo "<td class=\"item\">
+                                        <div class=\"item\">
+                                            <table class=\item\">
+                                                <tr>
+                                                    <td>
+                                                        <img class=\"item-image\" src='images/" . $line['item_image'] . "'>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p class=\"item-name\">{$line['item_name']}</p>
+                                                        <p class=\"item-manufacturer\">{$line['manufacturer_name']}</p>
+                                                        <p class=\"item-price\">-{$line['item_price']}</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>";
+                                    }
+                                    ?>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </div>
+                <div id="Transitions">
+                    <tr>
+                        <td colspan="9">
+                            <p class="zone-header">Интересные ссылки</p>
+                            <hr class="solid">
+                        </td>
+                    </tr>
+                </div>
             </table>
         </td>
         <td class="right-zone">
-            <ul class="menu">
-                <a href="#">
-                    <li class="bin-article checkout">
-                        <img src="resources/basket.svg"><span class="bin-summary">Корзина<br>300 руб</span></li>
-                </a>
-            </ul>
+
         </td>
     </tr>
     <tr class="spacer" style="height: 12px"></tr>
