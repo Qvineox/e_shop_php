@@ -80,7 +80,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr style="align-content: center">
         <td style="width: 20rem;"></td>
         <td style="background-image: url(resources/sun.svg); height: 300px; background-repeat: no-repeat">
-            <a href="#">
+            <a class="link" href="basket.php">
                 <div class="bin">
                     <table class="bin">
                         <tr>
@@ -106,12 +106,12 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
-                <a href="#">
+                <a class="link" href="index.php">
                     <li class="menu-article home">
                         Главная<img src="resources/home.svg"></li>
                 </a>
 
-                <a href="#">
+                <a class="link" href="catalog.php">
                     <li class="menu-article catalog">
                         Каталог<img src="resources/flower.svg"></li>
                 </a>
@@ -121,12 +121,12 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         Галерея<img src="resources/gallery.svg"></li>
                 </a>
 
-                <a href="#">
+                <a class="link" href="contacts.php">
                     <li class="menu-article contacts">
                         Контакты<img src="resources/contacts.svg"></li>
                 </a>
 
-                <a href="#">
+                <a class="link" href="account.php">
                     <li class="menu-article profile">
 
                         Профиль<img src="resources/profile.svg"></li>

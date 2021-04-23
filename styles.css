@@ -176,7 +176,7 @@ hr {
 }
 
 hr.solid {
-    border-top: 3px solid #bbb;
+    border-top: 2px solid #bbb;
 }
 
 td.item {
@@ -217,4 +217,17 @@ div.item {
     margin: 1px 10px 0 auto;
     text-align: end;
     font-style: oblique;
+}
+
+button.submit-button {
+    width: 40%;
+    height: 2rem;
+    text-align: center;
+    font-size: 1rem;
+
+    background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    border-radius: 15px;
+    border: 2px solid #434343;
+
+    cursor: pointer;
 }
