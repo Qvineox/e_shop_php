@@ -1,18 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1366" height="300" viewBox="0 0 1366 300">
+<svg xmlns="http://www.w3.org/2000/svg" width="1664" height="1250" viewBox="0 0 1664 1250">
   <defs>
     <style>
       .cls-1 {
-        fill: #fff;
-        filter: url(#filter);
+        fill: #f66;
       }
     </style>
-    <filter id="filter" x="163" y="17" width="890" height="890" filterUnits="userSpaceOnUse">
-      <feImage preserveAspectRatio="none" x="163" y="17" width="890" height="890" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iODkwIiBoZWlnaHQ9Ijg5MCIgdmlld0JveD0iMCAwIDg5MCA4OTAiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6IHVybCgjbGluZWFyLWdyYWRpZW50KTsKICAgICAgfQogICAgPC9zdHlsZT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50IiB4MT0iNDkxLjc3MSIgeDI9IjM5OC4yMjkiIHkyPSI4OTAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjY2Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2Y2OSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iODkwIiBoZWlnaHQ9Ijg5MCIvPgo8L3N2Zz4K"/>
-      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
-      <feBlend result="blend" in2="SourceGraphic"/>
-    </filter>
   </defs>
-  <g id="Монтажная_область_1" data-name="Монтажная область 1">
-    <circle id="Эллипс_1" data-name="Эллипс 1" class="cls-1" cx="608" cy="462" r="445"/>
-  </g>
+  <circle id="Эллипс_1" data-name="Эллипс 1" class="cls-1" cx="832" cy="1250" r="434"/>
 </svg>

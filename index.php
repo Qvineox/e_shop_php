@@ -45,6 +45,26 @@
         color: grey;
     }
 
+    li.links {
+        margin: 0;
+        padding: 0 3rem 0 2rem;
+        list-style: none;
+        background-image: url(resources/arrow.svg);
+        background-repeat: no-repeat;
+        /*background-position: left top;*/
+        background-position-x: 0;
+        background-position-y: 1rem;
+        background-size: 20px;
+    }
+
+    ol.links {
+        margin: 0 2px;
+        padding: 0 1rem 0 0.5rem;
+        list-style: none;
+        color: #552226;
+        border-left: 2px solid silver;
+    }
+
 </style>
 <link rel="stylesheet" href="styles.css">
 
@@ -58,18 +78,30 @@ or die('Не удалось соединиться: ' . pg_last_error());
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
     <tr style="align-content: center">
-        <ul class="bin-article">
+        <td style="width: 20rem;"></td>
+        <td style="background-image: url(resources/sun.svg); height: 300px; background-repeat: no-repeat">
             <a href="#">
-                <li>
-                    <img src="resources/basket.svg">
-                    <p class="bin-summary" style="margin: 5px 2px">
-                        3 товара <br> 6700 рублей
-                    </p>
-                </li>
+                <div class="bin">
+                    <table class="bin">
+                        <tr>
+                            <td rowspan="2" style="width: 60px">
+                                <img src="resources/basket.svg" style="height: 60px; width: 60px;">
+                            </td>
+                            <td style="padding: 0">
+                                <p class="bin" style="font-size: 1.5rem; text-decoration: underline">Ваша Корзина</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0">
+                                <p class="bin" style="font-size: 1rem;">10 товаров на $70.00</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </a>
-        </ul>
-        <img src="resources/sun.svg">
 
+        </td>
+        <td style="width: 20rem;"></td>
     </tr>
     <tr>
         <td class="left-zone">
@@ -282,6 +314,65 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         <td colspan="9">
                             <p class="zone-header">Интересные ссылки</p>
                             <hr class="solid">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9">
+                            <ul style="padding-left: 1rem">
+                                <li class="links">
+                                    <p class="zone-header" style="font-size: 3rem">Разделы товаров</p>
+                                    <?php
+                                    $query = 'SELECT * FROM section';
+                                    $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+
+                                    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                        echo "<ol class=\"links\">
+                                             <a class=\"zone-header link\" style=\"font-size: 2rem\">{$line['name']}</a>
+                                          </ol>";
+                                    }
+                                    ?>
+                                </li>
+                                <li class="links">
+                                    <p class="zone-header " style="font-size: 3rem">Категории</p>
+                                    <?php
+                                    $query = 'SELECT * FROM category WHERE id IN (5, 10, 18, 19, 23, 27)';
+                                    $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+
+                                    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                        echo "<ol class=\"links\">
+                                             <a class=\"zone-header link\" style=\"font-size: 2rem\">{$line['name']}</a>
+                                          </ol>";
+                                    }
+                                    ?>
+                                </li>
+                                <li class="links">
+                                    <p class="zone-header" style="font-size: 3rem">Контакты</p>
+                                    <ol class="links">
+                                        <a class="zone-header link" style="font-size: 2rem">Как добраться</a>
+                                    </ol>
+                                    <ol class="links">
+                                        <a class="zone-header link" style="font-size: 2rem">Связатся с нами</a>
+                                    </ol>
+                                </li>
+                                <li class="links">
+                                    <p class="zone-header" style="font-size: 3rem">Доставка</p>
+                                    <ol class="links">
+                                        <a class="zone-header link" style="font-size: 2rem">Курьерская служба</a>
+                                    </ol>
+                                    <ol class="links">
+                                        <a class="zone-header link" style="font-size: 2rem">Самовывоз</a>
+                                    </ol>
+                                    <ol class="links">
+                                        <a class="zone-header link" style="font-size: 2rem">Почта</a>
+                                    </ol>
+                                </li>
+                                <li class="links">
+                                    <p class="zone-header" style="font-size: 3rem">Ваш профиль</p>
+                                </li>
+                                <li class="links">
+                                    <p class="zone-header" style="font-size: 3rem">Ваша корзина</p>
+                                </li>
+                            </ul>
                         </td>
                     </tr>
                 </div>
