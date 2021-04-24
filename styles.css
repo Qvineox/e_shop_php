@@ -198,11 +198,22 @@ div.item {
     height: 200px;
 }
 
-.item-name {
+p.item-name {
     font-size: 1rem;
     font-weight: bold;
     color: #434343;
     margin: 5px 5px 0 5px;
+}
+
+a.item-name {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: #434343;
+    text-decoration: underline;
+    box-decoration-break: clone;
+    display: inline;
+
+    cursor: pointer;
 }
 
 .item-manufacturer {

@@ -32,10 +32,13 @@
         padding: 2px 5px;
         border-spacing: 0;
         border-radius: 15px;
+        background-image: none;
+
+        transition: background-color 0.4s;
     }
 
     tr.item-row:hover {
-        background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        background-color: #FF6666;
     }
 
     table.item-table {
@@ -51,10 +54,10 @@
         border-right: 1px solid silver;
     }
 </style>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 
 <?php
-$config = include('config.php');
+$config = include('../config.php');
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
@@ -74,6 +77,7 @@ $query = 'SELECT item.id as item_id,
                 item.name         as item_name,
                 item.price        as item_price,
                 item.image        as item_image,
+                item.manufacturer       as item_manufacturer_id,
                 manufacturer.name as manufacturer_name
           FROM item
                 LEFT JOIN manufacturer ON manufacturer.id = item.manufacturer
@@ -105,13 +109,13 @@ if (isset($sort)) {
 <table width="750" cellpadding="5" cellspacing="0">
     <tr style="align-content: center">
         <td style="width: 10rem;"></td>
-        <td style="background-image: url(resources/sun_katalog.svg); height: 300px; background-repeat: no-repeat; margin-bottom: -5px">
-            <a class="link" href="basket.php">
+        <td style="background-image: url(../resources/sun_katalog.svg); height: 300px; background-repeat: no-repeat; margin-bottom: -5px">
+            <a class="link" href="../basket.php">
                 <div class="bin">
                     <table class="bin">
                         <tr>
                             <td rowspan="2" style="width: 60px">
-                                <img src="resources/basket.svg" style="height: 60px; width: 60px;">
+                                <img src="../resources/basket.svg" style="height: 60px; width: 60px;">
                             </td>
                             <td style="padding: 0">
                                 <p class="bin" style="font-size: 1.5rem; text-decoration: underline">Ваша Корзина</p>
@@ -132,30 +136,30 @@ if (isset($sort)) {
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
-                <a class="link" href="index.php">
+                <a class="link" href="../index.php">
                     <li class="menu-article home">
-                        Главная<img src="resources/home.svg"></li>
+                        Главная<img src="../resources/home.svg"></li>
                 </a>
 
-                <a class="link" href="catalog.php">
+                <a class="link" href="items.php">
                     <li class="menu-article catalog">
-                        Каталог<img src="resources/flower.svg"></li>
+                        Каталог<img src="../resources/flower.svg"></li>
                 </a>
 
                 <a href="#">
                     <li class="menu-article gallery">
-                        Галерея<img src="resources/gallery.svg"></li>
+                        Галерея<img src="../resources/gallery.svg"></li>
                 </a>
 
-                <a class="link" href="contacts.php">
+                <a class="link" href="../contacts.php">
                     <li class="menu-article contacts">
-                        Контакты<img src="resources/contacts.svg"></li>
+                        Контакты<img src="../resources/contacts.svg"></li>
                 </a>
 
-                <a class="link" href="account.php">
+                <a class="link" href="../account.php">
                     <li class="menu-article profile">
 
-                        Профиль<img src="resources/profile.svg"></li>
+                        Профиль<img src="../resources/profile.svg"></li>
                 </a>
             </ul>
         </td>
@@ -183,10 +187,10 @@ if (isset($sort)) {
 
                                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                     echo "<tr class=\"item-row\">
-                                <td style=\"width: 50px; height: 50px\"><img style=\"width: 50px; height: 50px\" src='images/{$line['item_image']}'></td>
+                                <td style=\"width: 50px; height: 50px\"><img style=\"width: 50px; height: 50px\" src='../images/{$line['item_image']}'></td>
                                 <td><p class=\"item-name\" style='text-align: center'>{$line['item_id']}</p></td>
-                                <td><p class=\"item-name\">{$line['item_name']}</p></td>
-                                <td><p class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</p></td>
+                                <td><div style='margin: 2px 10px'><a href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a></div></td>
+                                <td><div style='margin: 2px 10px'><a href='manufacturers.php?id={$line['item_manufacturer_id']}' class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</a></div></td>
                                 <td><p class=\"item-price\">-{$line['item_price']}</p></td>
                             </tr>";
                                 }
@@ -195,7 +199,7 @@ if (isset($sort)) {
                         </table>
                     </td>
                     <td id="filters" style="width: 25%; vertical-align: top">
-                        <form action="catalog.php" method="get">
+                        <form action="items.php" method="get">
                             <table>
                                 <tr>
                                     <td colspan="4">

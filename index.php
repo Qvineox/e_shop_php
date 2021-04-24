@@ -111,7 +111,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         Главная<img src="resources/home.svg"></li>
                 </a>
 
-                <a class="link" href="catalog.php">
+                <a class="link" href="catalog/items.php">
                     <li class="menu-article catalog">
                         Каталог<img src="resources/flower.svg"></li>
                 </a>
