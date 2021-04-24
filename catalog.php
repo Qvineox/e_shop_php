@@ -25,6 +25,7 @@
         color: #434343;
         font-weight: lighter;
         font-size: 1.2rem;
+        margin: 0;
     }
 
     tr.item-row {
@@ -63,6 +64,41 @@ $manufacturers = @$_REQUEST['manufacturers'];
 $categories = @$_REQUEST['categories'];
 $price_more = @$_REQUEST['price_more'];
 $price_less = @$_REQUEST['price_less'];
+$sort = @$_REQUEST['sort'];
+
+if (isset($manufacturers)) {
+
+}
+
+$query = 'SELECT item.id as item_id,
+                item.name         as item_name,
+                item.price        as item_price,
+                item.image        as item_image,
+                manufacturer.name as manufacturer_name
+          FROM item
+                LEFT JOIN manufacturer ON manufacturer.id = item.manufacturer
+                WHERE ';
+if (isset($manufacturers)) {
+    $query = $query . 'item.manufacturer IN (' . implode(',', $manufacturers) . ') AND ';
+}
+if (isset($categories)) {
+    $query = $query . 'item.category IN (' . implode(',', $categories) . ') AND ';
+}
+if (isset($price_more)) {
+    $query = $query . 'item.price BETWEEN ' . $price_more . ' AND ';
+} else {
+    $query = $query . 'item.price BETWEEN 0 AND ';
+}
+if (isset($price_less)) {
+    $query = $query . $price_less;
+} else {
+    $query = $query . '100000';
+}
+if (isset($sort)) {
+    $query = $query . 'ORDER BY item.price ' . $sort . ';';
+} else {
+    $query = $query . 'ORDER BY item.price ASC;';
+}
 ?>
 
 <body>
@@ -143,13 +179,6 @@ $price_less = @$_REQUEST['price_less'];
                             </tr>
                             <div>
                                 <?php
-                                $query = 'SELECT item.id           as item_id,
-                                                       item.name         as item_name,
-                                                       item.price        as item_price,
-                                                       item.image        as item_image,
-                                                       manufacturer.name as manufacturer_name
-                                                FROM item
-                                                         LEFT JOIN manufacturer ON manufacturer.id = item.manufacturer';
                                 $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
@@ -176,6 +205,22 @@ $price_less = @$_REQUEST['price_less'];
                                 </tr>
                                 <tr>
                                     <td colspan="3">
+                                        <p class="filter" style="font-size: 2rem">Сортировка</p>
+                                        <table>
+                                            <p class="filter-label" style="margin: 5px 2px;"><input name="sort"
+                                                                                                    type="radio"
+                                                                                                    value="ASC">По
+                                                возрастанию цены</p>
+                                            <p class="filter-label" style="margin: 5px 2px;"><input name="sort"
+                                                                                                    type="radio"
+                                                                                                    value="DESC">По
+                                                убыванию цены</p>
+                                        </table>
+                                        <hr class="solid">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
                                         <p class="filter" style="font-size: 2rem">Бренды</p>
                                         <table>
                                             <?php
@@ -195,7 +240,8 @@ $price_less = @$_REQUEST['price_less'];
                                 <tr>
                                     <td colspan="3">
                                         <p class="filter" style="font-size: 2rem">Категории</p>
-                                        <select name="categories" style="width: 90%; margin: 0 5px 10px 5px" multiple>
+                                        <select name="categories[]"
+                                                style="width: 90%; height: 300px; margin: 0 5px 10px 5px" multiple>
                                             <?php
                                             $query = 'SELECT * FROM category';
                                             $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
@@ -215,10 +261,10 @@ $price_less = @$_REQUEST['price_less'];
                                                 <td><p class="filter" style="font-size: 2rem">Диапазон цен</p></td>
                                             </tr>
                                             <tr>
-                                                <td>От <input type="number" name="price_more" placeholder="0"></td>
+                                                <td>От <input type="number" name="price_more" value="0"></td>
                                             </tr>
                                             <tr>
-                                                <td>До <input type="number" name="price_less" placeholder="10000"></td>
+                                                <td>До <input type="number" name="price_less" value="100000"></td>
                                             </tr>
                                         </table>
                                         <hr class=" solid">
