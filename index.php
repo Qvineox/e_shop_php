@@ -106,27 +106,27 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
-                <a class="link" href="index.php">
+                <a href="index.php">
                     <li class="menu-article home">
                         Главная<img src="resources/home.svg"></li>
                 </a>
 
-                <a class="link" href="catalog/items.php">
+                <a href="catalog/sections.php">
                     <li class="menu-article catalog">
-                        Каталог<img src="resources/flower.svg"></li>
+                        Разделы<img src="resources/flower.svg"></li>
                 </a>
 
-                <a href="#">
-                    <li class="menu-article gallery">
-                        Галерея<img src="resources/gallery.svg"></li>
+                <a href="catalog/items.php">
+                    <li class="menu-article all-items ">
+                        Товары<img src="resources/brush.svg"></li>
                 </a>
 
-                <a class="link" href="contacts.php">
+                <a href="contacts.php">
                     <li class="menu-article contacts">
                         Контакты<img src="resources/contacts.svg"></li>
                 </a>
 
-                <a class="link" href="account.php">
+                <a href="account.php">
                     <li class="menu-article profile">
 
                         Профиль<img src="resources/profile.svg"></li>

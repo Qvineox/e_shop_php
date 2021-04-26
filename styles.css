@@ -26,9 +26,13 @@ a, p {
     cursor: default;
 }
 
-a.link {
+a {
     cursor: pointer;
+}
+
+a.link {
     color: #552226;
+    text-decoration: underline;
 }
 
 .content {
@@ -151,23 +155,23 @@ p.bin {
 }
 
 
-.home {
+li.home {
     background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 }
 
-.gallery {
+li.all-items {
     background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 }
 
-.catalog {
+li.catalog {
     background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 }
 
-.contacts {
+li.contacts {
     background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 }
 
-.profile {
+li.profile {
     background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 }
 
@@ -241,4 +245,8 @@ button.submit-button {
     border: 2px solid #434343;
 
     cursor: pointer;
+}
+
+circle#Краски:hover {
+    color: #bbbbbb;
 }
