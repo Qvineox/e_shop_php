@@ -3,14 +3,6 @@
     Главная страница
 </title>
 <style>
-    .zone-header {
-        text-align: start;
-        color: #434343;
-        font-weight: lighter;
-        font-size: 4rem;
-        margin: 0;
-    }
-
     p.filter {
         text-align: start;
         color: #434343;
@@ -202,7 +194,7 @@ if (isset($section)) {
                                     echo "<tr class=\"item-row\">
                                 <td style=\"width: 50px; height: 50px\"><img style=\"width: 50px; height: 50px\" src='../images/item-images/{$line['item_image']}'></td>
                                 <td><p class=\"item-name\" style='text-align: center'>{$line['item_id']}</p></td>
-                                <td><div style='margin: 2px 10px'><a href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a></div></td>
+                                <td><div style='margin: 2px 10px'><a class='link' href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a></div></td>
                                 <td><div style='margin: 2px 10px'><p class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</p></div></td>
                                 <td><p class=\"item-price\">-{$line['item_price']}</p></td>
                             </tr>";

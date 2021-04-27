@@ -3,14 +3,6 @@
     Главная страница
 </title>
 <style>
-    .zone-header {
-        text-align: start;
-        color: #434343;
-        font-weight: lighter;
-        font-size: 4rem;
-        margin: 0;
-    }
-
     .description {
         text-align: start;
         font-weight: lighter;
@@ -51,7 +43,11 @@ $query = 'SELECT item.id as item_id,
             item.description        as item_description,
             item.manufacturer       as item_manufacturer_id,
             item.category       as item_category_id,
+            item.purpose       as item_purpose,
+            item.quantity       as item_quantity,
+            item.value       as item_value,
             manufacturer.name as manufacturer_name,
+            manufacturer.id as manufacturer_id,
             category.name as category_name
           FROM item
                 LEFT JOIN manufacturer ON manufacturer.id = item.manufacturer
@@ -139,7 +135,8 @@ $item = pg_fetch_array($result)
                             </tr>
                             <tr>
                                 <td style="width: 500px">
-                                    <img style="width: 500px" src="../images/item-images/<?php echo $item['item_image'] ?>">
+                                    <img style="width: 500px"
+                                         src="../images/item-images/<?php echo $item['item_image'] ?>">
                                 </td>
                                 <td style="padding: 0 5px; vertical-align: top;">
                                     <table>
@@ -170,9 +167,22 @@ $item = pg_fetch_array($result)
                                                             </p>
                                                         </td>
                                                         <td>
-                                                            <a class="item-feature">
+                                                            <a <?php echo "href=\"items.php?manufacturers%5B%5D={$item['manufacturer_id']}\"" ?>
+                                                                    class="item-feature">
                                                                 <?php echo $item['manufacturer_name'] ?>
                                                             </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p class="item-feature">
+                                                                Артикул
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="item-feature">
+                                                                <?php echo $item['item_id'] ?>
+                                                            </p>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -182,7 +192,7 @@ $item = pg_fetch_array($result)
                                                             </p>
                                                         </td>
                                                         <td>
-                                                            <a class="item-feature">
+                                                            <a <?php echo "href=\"items.php?categories%5B%5D={$item['item_category_id']}\"" ?>class="item-feature">
                                                                 <?php echo $item['category_name'] ?>
                                                             </a>
                                                         </td>
@@ -195,7 +205,7 @@ $item = pg_fetch_array($result)
                                                         </td>
                                                         <td>
                                                             <p class="item-feature">
-                                                                ???
+                                                                <?php echo $item['item_quantity'] ?>
                                                             </p>
                                                         </td>
                                                     </tr>
@@ -207,10 +217,26 @@ $item = pg_fetch_array($result)
                                                         </td>
                                                         <td>
                                                             <p class="item-feature">
-                                                                ???
+                                                                <?php echo $item['item_purpose'] ?>
                                                             </p>
                                                         </td>
                                                     </tr>
+                                                    <?php
+                                                    if (isset($item['item_value'])) {
+                                                        echo "<tr>
+                                                        <td>
+                                                            <p class=\"item-feature\">
+                                                                Объем
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <p class=\"item-feature\">
+                                                                {$item['item_value']}
+                                                            </p>
+                                                        </td>
+                                                    </tr>";
+                                                    }
+                                                    ?>
                                                 </table>
                                             </td>
                                         </tr>
@@ -256,3 +282,5 @@ $item = pg_fetch_array($result)
 </table>
 </body>
 </html>
+
+}

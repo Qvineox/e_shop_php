@@ -9,14 +9,6 @@
         background: #FF6673;
     }
 
-    .zone-header {
-        text-align: start;
-        color: #434343;
-        font-weight: lighter;
-        font-size: 4rem;
-        margin: 0;
-    }
-
     .news-article {
         background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
         /*background-blend-mode: lighten;*/
@@ -65,6 +57,52 @@
         border-left: 2px solid silver;
     }
 
+    div.item {
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+        border-radius: 15px;
+        padding: 2px 5px;
+        border: 2px solid gray;
+        margin-right: 0;
+        width: 200px;
+    }
+
+    .item-image {
+        border-radius: 15px;
+        width: 200px;
+        height: 200px;
+    }
+
+    p.item-name {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #434343;
+        margin: 5px 5px 0 5px;
+    }
+
+    a.item-name {
+        font-size: 1rem;
+        font-weight: bolder;
+        color: #434343;
+        text-decoration: underline;
+        box-decoration-break: clone;
+        display: inline;
+
+        cursor: pointer;
+    }
+
+    .item-manufacturer {
+        font-size: 0.8rem;
+        color: #434343;
+        margin: 1px 5px;
+    }
+
+    .item-price {
+        font-size: 2rem;
+        color: #552226;
+        margin: 1px 10px 0 auto;
+        text-align: end;
+        font-style: oblique;
+    }
 </style>
 <link rel="stylesheet" href="styles.css">
 
@@ -289,7 +327,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                             <table class=\item\">
                                                 <tr>
                                                     <td>
-                                                        <img class=\"item-image\" src='images/" . $line['item_image'] . "'>
+                                                        <img class=\"item-image\" src='images/item-images/" . $line['item_image'] . "'>
                                                     </td>
                                                 </tr>
                                                 <tr>

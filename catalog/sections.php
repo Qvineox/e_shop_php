@@ -3,14 +3,6 @@
     Главная страница
 </title>
 <style>
-    .zone-header {
-        text-align: start;
-        color: #434343;
-        font-weight: lighter;
-        font-size: 4rem;
-        margin: 0;
-    }
-
     table.item-table {
         border-spacing: 0;
         padding: 0;

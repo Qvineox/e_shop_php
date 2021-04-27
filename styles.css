@@ -189,53 +189,6 @@ td.item {
     width: fit-content;
 }
 
-div.item {
-    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
-    border-radius: 15px;
-    padding: 2px 5px;
-    border: 2px solid gray;
-    margin-right: 0;
-    width: 200px;
-}
-
-.item-image {
-    border-radius: 15px;
-    width: 200px;
-    height: 200px;
-}
-
-p.item-name {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #434343;
-    margin: 5px 5px 0 5px;
-}
-
-a.item-name {
-    font-size: 1rem;
-    font-weight: bolder;
-    color: #434343;
-    text-decoration: underline;
-    box-decoration-break: clone;
-    display: inline;
-
-    cursor: pointer;
-}
-
-.item-manufacturer {
-    font-size: 0.8rem;
-    color: #434343;
-    margin: 1px 5px;
-}
-
-.item-price {
-    font-size: 2rem;
-    color: #552226;
-    margin: 1px 10px 0 auto;
-    text-align: end;
-    font-style: oblique;
-}
-
 button.submit-button {
     width: 40%;
     height: 2rem;
@@ -251,4 +204,12 @@ button.submit-button {
 
 circle#Краски:hover {
     color: #bbbbbb;
+}
+
+.zone-header {
+    text-align: start;
+    color: #434343;
+    font-weight: lighter;
+    font-size: 4rem;
+    margin: 0;
 }
