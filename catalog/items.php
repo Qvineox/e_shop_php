@@ -113,7 +113,7 @@ if (isset($section)) {
     if (isset($sort)) {
         $query = $query . 'ORDER BY item.price ' . $sort . ';';
     } else {
-        $query = $query . 'ORDER BY item.price ASC;';
+        $query = $query . 'ORDER BY item.id ASC;';
     }
 }
 ?>
@@ -200,10 +200,10 @@ if (isset($section)) {
 
                                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                     echo "<tr class=\"item-row\">
-                                <td style=\"width: 50px; height: 50px\"><img style=\"width: 50px; height: 50px\" src='../images/{$line['item_image']}'></td>
+                                <td style=\"width: 50px; height: 50px\"><img style=\"width: 50px; height: 50px\" src='../images/item-images/{$line['item_image']}'></td>
                                 <td><p class=\"item-name\" style='text-align: center'>{$line['item_id']}</p></td>
                                 <td><div style='margin: 2px 10px'><a href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a></div></td>
-                                <td><div style='margin: 2px 10px'><a href='manufacturers.php?id={$line['item_manufacturer_id']}' class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</a></div></td>
+                                <td><div style='margin: 2px 10px'><p class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</p></div></td>
                                 <td><p class=\"item-price\">-{$line['item_price']}</p></td>
                             </tr>";
                                 }

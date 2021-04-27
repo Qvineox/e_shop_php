@@ -78,6 +78,29 @@
         text-align: center;
         cursor: pointer;
     }
+
+    div.manufacturer-card {
+        margin: 5px 2px;
+        width: 200px;
+        height: 200px;
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+        border-radius: 15px;
+
+        cursor: pointer;
+
+        display: inline-block;
+    }
+
+    div.manufacturer-card:hover {
+        background-image: linear-gradient(to top, #FF6673 0%, #ec8c69 100%);
+    }
+
+    img.manufacturer-image {
+        width: 190px;
+        height: 190px;
+        border-radius: 15px;
+        margin: 5px 5px;
+    }
 </style>
 
 <?php
@@ -174,6 +197,35 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                 </td>";
                                 }
                                 ?>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="catalog" style="width: 75%; vertical-align: top; padding: 2px 5px">
+                        <table class="item-table">
+                            <tr>
+                                <td colspan="6" style="border: none">
+                                    <p class="zone-header">Производители</p>
+                                    <hr class="solid">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px">
+                                    <?php
+                                    $query = 'SELECT id, name, image FROM manufacturer ORDER BY id ASC';
+                                    $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+
+                                    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                        echo "<a href='items.php?manufacturers%5B%5D={$line['id']}'>
+                                        <div class=\"manufacturer-card\">
+                                            <img class=\"manufacturer-image\"
+                                                 src=\"../images/manufacturer-images/{$line['image']}\">
+                                        </div>
+                                    </a>";
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         </table>
                     </td>

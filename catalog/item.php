@@ -139,7 +139,7 @@ $item = pg_fetch_array($result)
                             </tr>
                             <tr>
                                 <td style="width: 500px">
-                                    <img style="width: 500px" src="../images/<?php echo $item['item_image'] ?>">
+                                    <img style="width: 500px" src="../images/item-images/<?php echo $item['item_image'] ?>">
                                 </td>
                                 <td style="padding: 0 5px; vertical-align: top;">
                                     <table>

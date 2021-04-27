@@ -216,10 +216,10 @@ if (isset($section)) {
                                     echo "<tr>";
                                     $counter = 0;
                                 }
-                                $array = array([$line['category_id']]);
-                                $category_items_url = "items.php?" . http_build_query(array(
-                                        "categories" => $array
-                                    ));
+//                                $array = array([$line['category_id']]);
+//                                $category_items_url = "items.php?" . http_build_query(array(
+//                                        "categories" => $array
+//                                    ));
                                 echo "<td colspan=\"3\">
                                 <a href='items.php?categories%5B%5D={$line['category_id']}'>
                                 <div class=\"category-card\">
