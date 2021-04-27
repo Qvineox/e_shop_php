@@ -63,17 +63,29 @@ $connection = pg_connect("host={$config['host']} dbname={$config['database']} us
 or die('Не удалось соединиться: ' . pg_last_error());
 
 //запрашиваем фильтры
-$manufacturers = @$_REQUEST['manufacturers'];
-$categories = @$_REQUEST['categories'];
-$price_more = @$_REQUEST['price_more'];
-$price_less = @$_REQUEST['price_less'];
-$sort = @$_REQUEST['sort'];
+$manufacturers = @$_GET['manufacturers'];
+$categories = @$_GET['categories'];
+$price_more = @$_GET['price_more'];
+$price_less = @$_GET['price_less'];
+$sort = @$_GET['sort'];
 
-if (isset($manufacturers)) {
+$section = @$_GET['section'];
 
-}
-
-$query = 'SELECT item.id as item_id,
+if (isset($section)) {
+    $query = "SELECT item.id           as item_id,
+                   item.name         as item_name,
+                   item.price        as item_price,
+                   item.image        as item_image,
+                   item.manufacturer as item_manufacturer_id,
+                   item.category     as item_category,
+                   manufacturer.name as manufacturer_name,
+                   category.section  as item_section
+                FROM item
+                         LEFT JOIN category on item.category = category.id
+                         LEFT JOIN manufacturer on item.manufacturer = manufacturer.id
+                WHERE category.section = $section;";
+} else {
+    $query = 'SELECT item.id as item_id,
                 item.name         as item_name,
                 item.price        as item_price,
                 item.image        as item_image,
@@ -82,26 +94,27 @@ $query = 'SELECT item.id as item_id,
           FROM item
                 LEFT JOIN manufacturer ON manufacturer.id = item.manufacturer
                 WHERE ';
-if (isset($manufacturers)) {
-    $query = $query . 'item.manufacturer IN (' . implode(',', $manufacturers) . ') AND ';
-}
-if (isset($categories)) {
-    $query = $query . 'item.category IN (' . implode(',', $categories) . ') AND ';
-}
-if (isset($price_more)) {
-    $query = $query . 'item.price BETWEEN ' . $price_more . ' AND ';
-} else {
-    $query = $query . 'item.price BETWEEN 0 AND ';
-}
-if (isset($price_less)) {
-    $query = $query . $price_less;
-} else {
-    $query = $query . '100000';
-}
-if (isset($sort)) {
-    $query = $query . 'ORDER BY item.price ' . $sort . ';';
-} else {
-    $query = $query . 'ORDER BY item.price ASC;';
+    if (isset($manufacturers)) {
+        $query = $query . 'item.manufacturer IN (' . implode(',', $manufacturers) . ') AND ';
+    }
+    if (isset($categories)) {
+        $query = $query . 'item.category IN (' . implode(',', $categories) . ') AND ';
+    }
+    if (isset($price_more)) {
+        $query = $query . 'item.price BETWEEN ' . $price_more . ' AND ';
+    } else {
+        $query = $query . 'item.price BETWEEN 0 AND ';
+    }
+    if (isset($price_less)) {
+        $query = $query . $price_less;
+    } else {
+        $query = $query . '100000';
+    }
+    if (isset($sort)) {
+        $query = $query . 'ORDER BY item.price ' . $sort . ';';
+    } else {
+        $query = $query . 'ORDER BY item.price ASC;';
+    }
 }
 ?>
 

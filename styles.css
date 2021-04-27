@@ -78,7 +78,7 @@ p.info {
     top: 20rem;
     list-style: none;
     position: fixed;
-    z-index: 0;
+    z-index: 1;
 }
 
 .menu-article {
@@ -111,6 +111,8 @@ div.bin {
 
     opacity: 0.3;
     transition: 0.3s;
+
+    z-index: 1;
 }
 
 div.bin:hover {

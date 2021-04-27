@@ -1,6 +1,6 @@
 <html>
 <title>
-    Главная страница
+    Категории
 </title>
 <style>
     .zone-header {
@@ -13,13 +13,27 @@
 
     table.item-table {
         border-spacing: 0;
-        padding: 0;
     }
 
-    div.section-card {
-        margin: 20px auto;
-        height: 650px;
-        width: 200px;
+    div.category-card {
+        margin: 5px auto;
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+        padding: 10px;
+        border-radius: 20px;
+
+        position: relative;
+        cursor: pointer;
+
+        height: 200px;
+        width: 700px;
+
+        z-index: 0;
+
+        text-align: center;
+    }
+
+    div.all-items-category-card {
+        margin: 5px 10px;
         background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
         padding: 10px;
         border-radius: 20px;
@@ -28,6 +42,19 @@
         cursor: pointer;
 
         z-index: 0;
+
+        text-align: center;
+    }
+
+    div.all-items-category-card:hover {
+        background-image: linear-gradient(to top, #FF6673 0%, #ec8c69 100%);
+    }
+
+    div.all-items-category-card p {
+        font-size: 2rem;
+        margin: 5px 10px;
+        color: black;
+        cursor: pointer;
     }
 
     .overlay {
@@ -42,22 +69,18 @@
         transition: .5s ease;
         border-radius: 15px;
         background-image: linear-gradient(to top, #FF6673 0%, #ec8c69 100%);
-
-
-        writing-mode: vertical-lr;
-        text-orientation: upright;
     }
 
-    div.section-card:hover {
+    div.category-card:hover {
         background-image: linear-gradient(to top, #FF6673 0%, #ec8c69 100%);
     }
 
-    .section-card:hover .overlay {
+    .category-card:hover .overlay {
         background-blend-mode: color;
         opacity: 0.9;
     }
 
-    img.section-image {
+    img.category-image {
         border-radius: 20px;
         vertical-align: middle;
         display: block;
@@ -65,7 +88,7 @@
         height: auto;
     }
 
-    p.section-overlay {
+    p.category-overlay {
         color: black;
         font-size: 50px;
         position: absolute;
@@ -79,15 +102,34 @@
         cursor: pointer;
     }
 </style>
+<link rel="stylesheet" href="../styles.css">
 
 <?php
 $config = include('../config.php');
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
-?>
 
-<link rel="stylesheet" href="../styles.css">
+//запрашиваем фильтры
+$section = @$_GET['section'];
+if (isset($section)) {
+    $query = "SELECT category.id as category_id,
+                category.name    as category_name,
+                category.image   as category_image
+          FROM category
+          WHERE category.section = $section";
+
+    $section_name = pg_fetch_result(pg_query("SELECT name FROM section WHERE id = $section LIMIT 1"), 0);
+} else {
+    $query = 'SELECT category.id as category_id,
+                category.name    as category_name,
+                category.image   as category_image,
+                category.section as category_section_id,
+                section.name as section_name
+          FROM item
+                LEFT JOIN section ON section.id = category.section';
+}
+?>
 
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
@@ -154,26 +196,55 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         <table class="item-table">
                             <tr>
                                 <td colspan="6" style="border: none">
-                                    <p class="zone-header">Разделы</p>
+                                    <?php
+                                    if (isset($section)) {
+                                        echo "<p class=\"zone-header\">{$section_name}</p>";
+                                    }
+                                    ?>
                                     <hr class="solid">
                                 </td>
                             </tr>
-                            <tr>
-                                <?php
-                                $query = 'SELECT * FROM section ORDER BY id ASC';
-                                $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+                            <?php
+                            $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+                            $counter = 0;
 
-                                while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                                    echo "<td style='align-items: center; align-content: center;'>
-                                    <a href='categories.php?section={$line['id']}'><div class=\"section-card\">
-                                        <img class=\"section-image\" src=\"../images/section-images/{$line['image']}\">
-                                        <div class=\"overlay\">
-                                            <p class=\"section-overlay\">{$line['name']}</p>
-                                        </div>
-                                    </div></a>
-                                </td>";
+                            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                if ($counter == 0) {
+                                    echo "<tr>";
+
+                                } elseif ($counter == 2) {
+                                    echo "<tr>";
+                                    $counter = 0;
                                 }
-                                ?>
+                                $array = array([$line['category_id']]);
+                                $category_items_url = "items.php?" . http_build_query(array(
+                                        "categories" => $array
+                                    ));
+                                echo "<td colspan=\"3\">
+                                <a href='items.php?categories%5B%5D={$line['category_id']}'>
+                                <div class=\"category-card\">
+                                    <img class=\"category-image\" src=\"../images/category-images/{$line['category_image']}\">
+                                    <div class=\"overlay\">
+                                        <p class=\"category-overlay\">{$line['category_name']}</p>
+                                    </div>
+                                </div>
+                                </a>
+                                </td>";
+                                if ($counter == 1) {
+                                    echo "</tr>";
+                                }
+                                $counter++;
+                            }
+                            ?>
+                            <tr>
+                                <td colspan="6">
+                                    <a href="items.php?section=<?php echo $section ?>">
+                                        <div class="all-items-category-card">
+                                            <p>Все товары раздела</p>
+                                        </div>
+                                    </a>
+
+                                </td>
                             </tr>
                         </table>
                     </td>
