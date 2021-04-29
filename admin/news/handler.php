@@ -5,7 +5,8 @@
 <style>
     div.progress {
         border-radius: 15px;
-        width: 100%;
+        margin: 5px;
+        padding: 10px 10px;
     }
 
     div.success {
@@ -14,6 +15,17 @@
 
     div.warning {
         background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+    }
+
+    p.message {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    a.recall {
+        font-weight: bold;
+        font-size: 1.6rem;
     }
 </style>
 <link rel="stylesheet" href="../../styles.css">
@@ -25,7 +37,7 @@ $connection = pg_connect("host={$config['host']} dbname={$config['database']} us
 or die('Не удалось соединиться: ' . pg_last_error());
 
 $target_dir = "../../images/news-images/";
-$target_file = $target_dir . basename($_FILES["image"]["name"]);
+$target_file = $target_dir . @basename($_FILES["image"]["name"]);
 
 $uploadOk = False;
 $errors = array();
@@ -34,14 +46,12 @@ $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
 
 
-if (file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])) {
-    printf('OBAMA0');
+if (@file_exists($_FILES['image']['tmp_name']) || @is_uploaded_file($_FILES['image']['tmp_name'])) {
     $check = getimagesize($_FILES["image"]["tmp_name"]);
     if ($check !== false) {
         $uploadOk = True;
     } else {
         $errors[] = "File is not an image.";
-        printf('OBAMA1');
         $uploadOk = False;
     }
 
@@ -72,15 +82,10 @@ if (!$uploadOk) {
     }
 }
 
-$id = $_POST['id'];
-$header = $_POST['header'];
-$text = $_POST['text'];
-$image = htmlspecialchars(basename($_FILES["image"]["name"]));
-
-printf($id);
-printf($header);
-printf($text);
-printf($image);
+$id = $_REQUEST['id'];
+$header = @$_POST['header'];
+$text = @$_POST['text'];
+$image = @htmlspecialchars(basename($_FILES["image"]["name"]));
 
 $mode = $_GET['mode'];
 
@@ -96,6 +101,23 @@ if (isset($mode)) {
             $message = 'Запись частично обновлена!';
         }
 
+        $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+    } elseif ($mode == 'add') {
+        $date = date("Y-m-d");
+        if ($uploadOk) {
+            $query = "INSERT INTO article(header, text, date, image) VALUES ('$header', '$text', '$date', '$image');";
+            $class = 'success';
+            $message = 'Запись полностью добавлена успешно!';
+        } else {
+            $query = "INSERT INTO article(header, text, date) VALUES ('$header', '$text', '$date');";
+            $class = 'warning';
+            $message = 'Запись частично добавлена!';
+        }
+        $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
+    } elseif ($mode = 'delete') {
+        $query = "DELETE FROM article WHERE id = '$id';";
+        $class = 'success';
+        $message = "Запись #{$id} удалена!";
         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
     }
 }
@@ -130,7 +152,7 @@ if (isset($mode)) {
                     <li class="menu-article catalog">
                         Заказы<img src="../resources/money.svg"></li>
                 </a>
-                <a href="../index.php">
+                <a href="../../index.php">
                     <li class="menu-article admin-options">
                         Вернуться<img src="../resources/undo.svg"></li>
                 </a>
@@ -139,10 +161,27 @@ if (isset($mode)) {
         <td class="content center-zone curved" style="vertical-align: top">
             <table>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <div class="<?php echo $class ?> progress">
-                            <p><?php echo $message ?></p>
+                            <p class="message"><?php echo $message ?></p>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul style="margin: 5px 2px; list-style-type: none;">
+                            <li>
+                                <a class="link recall" href="index.php">
+                                    Вернуться к новостям
+                                </a>
+                            </li>
+                            <li>
+                                <a class="link recall" href="../index.php">
+                                    Вернуться к панели
+                                </a>
+                            </li>
+                        </ul>
+
                     </td>
                 </tr>
             </table>

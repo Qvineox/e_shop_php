@@ -83,7 +83,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                     <li class="menu-article catalog">
                         Заказы<img src="../resources/money.svg"></li>
                 </a>
-                <a href="../index.php">
+                <a href="../../index.php">
                     <li class="menu-article admin-options">
                         Вернуться<img src="../resources/undo.svg"></li>
                 </a>
@@ -97,7 +97,8 @@ or die('Не удалось соединиться: ' . pg_last_error());
                             <table>
                                 <tr>
                                     <td>
-                                        <p style="font-size: 2rem; margin: 2px 5px">Добавить новую новость</p>
+                                        <a href="editor.php?mode=add" style="font-size: 2rem; margin: 2px 5px">Добавить
+                                            новую новость</a>
                                     </td>
                                 </tr>
                             </table>
@@ -130,7 +131,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                     </a>
                                     </td>
                                     <td class=\"item\">
-                                    <a>
+                                    <a href='handler.php?mode=delete&id={$line['id']}'>
                                         <img class=\"item-delete\" src=\"../resources/delete.svg\">
                                     </a>
                                     </td>

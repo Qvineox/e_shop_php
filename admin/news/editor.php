@@ -30,7 +30,7 @@ $connection = pg_connect("host={$config['host']} dbname={$config['database']} us
 or die('Не удалось соединиться: ' . pg_last_error());
 
 $mode = $_GET['mode'];
-$id = $_GET['id'];
+$id = @$_GET['id'];
 
 if (isset($mode)) {
     if ($mode == 'edit') {
@@ -71,7 +71,7 @@ if (isset($mode)) {
                     <li class="menu-article catalog">
                         Заказы<img src="../resources/money.svg"></li>
                 </a>
-                <a href="../index.php">
+                <a href="../../index.php">
                     <li class="menu-article admin-options">
                         Вернуться<img src="../resources/undo.svg"></li>
                 </a>

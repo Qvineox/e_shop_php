@@ -222,3 +222,10 @@ circle#Краски:hover {
 .admin-options {
     background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
+
+div.button {
+    background-color: #FF6673;
+    border: 2px solid silver;
+    border-radius: 15px;
+}
+
