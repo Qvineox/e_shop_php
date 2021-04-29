@@ -137,7 +137,6 @@ or die('Не удалось соединиться: ' . pg_last_error());
                     </table>
                 </div>
             </a>
-
         </td>
         <td style="width: 20rem;"></td>
     </tr>
@@ -323,7 +322,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
 
                                     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                         echo "<td class=\"item\">
-                                        <div class=\"item\">
+                                        <a href='catalog/item.php?id={$line['item_id']}'><div class=\"item\">
                                             <table class=\item\">
                                                 <tr>
                                                     <td>
@@ -338,7 +337,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                                     </td>
                                                 </tr>
                                             </table>
-                                        </div>
+                                        </div></a>
                                     </td>";
                                     }
                                     ?>
@@ -365,7 +364,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
 
                                     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                         echo "<ol class=\"links\">
-                                             <a class=\"zone-header link\" style=\"font-size: 2rem\">{$line['name']}</a>
+                                             <a href='catalog/categories.php?section={$line['id']}' class=\"zone-header link\" style=\"font-size: 2rem\">{$line['name']}</a>
                                           </ol>";
                                     }
                                     ?>
@@ -373,12 +372,12 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                 <li class="links">
                                     <p class="zone-header " style="font-size: 3rem">Категории</p>
                                     <?php
-                                    $query = 'SELECT * FROM category WHERE id IN (5, 10, 18, 19, 23, 27)';
+                                    $query = 'SELECT * FROM category WHERE id IN (29, 9, 25, 26, 23, 27)';
                                     $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                                     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                         echo "<ol class=\"links\">
-                                             <a class=\"zone-header link\" style=\"font-size: 2rem\">{$line['name']}</a>
+                                             <a href='catalog/items.php?categories%5B%5D={$line['id']}' class=\"zone-header link\" style=\"font-size: 2rem\">{$line['name']}</a>
                                           </ol>";
                                     }
                                     ?>
@@ -386,22 +385,12 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                 <li class="links">
                                     <p class="zone-header" style="font-size: 3rem">Контакты</p>
                                     <ol class="links">
-                                        <a class="zone-header link" style="font-size: 2rem">Как добраться</a>
+                                        <a href="contacts.php" class="zone-header link" style="font-size: 2rem">Как
+                                            добраться</a>
                                     </ol>
                                     <ol class="links">
-                                        <a class="zone-header link" style="font-size: 2rem">Связатся с нами</a>
-                                    </ol>
-                                </li>
-                                <li class="links">
-                                    <p class="zone-header" style="font-size: 3rem">Доставка</p>
-                                    <ol class="links">
-                                        <a class="zone-header link" style="font-size: 2rem">Курьерская служба</a>
-                                    </ol>
-                                    <ol class="links">
-                                        <a class="zone-header link" style="font-size: 2rem">Самовывоз</a>
-                                    </ol>
-                                    <ol class="links">
-                                        <a class="zone-header link" style="font-size: 2rem">Почта</a>
+                                        <a href="contacts.php" class="zone-header link" style="font-size: 2rem">Связатся
+                                            с нами</a>
                                     </ol>
                                 </li>
                                 <li class="links">
