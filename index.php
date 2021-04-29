@@ -279,7 +279,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                         echo "<td><table><tr><td align=\"center\" class=\"news-article curved\"
                                                 style=\"width: auto; padding: 5px 5px\">
-                                                <img src='images/" . $line['image'] . "'
+                                                <img src='images/news-images/" . $line['image'] . "'
 //                                                 изображения 560 * 120
                                                      style=\"width: 560px;
                                                      height: auto;
