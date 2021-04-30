@@ -1,0 +1,74 @@
+div.auth-form {
+    width: 60rem;
+
+    border: 1px solid #434343;
+    border-radius: 15px;
+
+    margin: 5px auto;
+    padding: 5px 10px 2px 10px;
+}
+
+div.auth-form.error {
+    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+}
+
+p.form-label {
+    font-size: 3rem;
+    margin: 10px 10px;
+}
+
+form.auth-form {
+    padding: 10px 5px 0 5px;
+}
+
+label, input {
+    font-size: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+td.form-label {
+    width: 30%;
+}
+
+input {
+    width: 100%;
+}
+
+form {
+    text-align: start;
+}
+
+button.button-submit, button.button-reset {
+    width: 45%;
+    height: 50px;
+    margin: 0 20px;
+
+    border-radius: 15px;
+    border: 1px solid #434343;
+
+    display: inline-block;
+    text-align: center;
+
+    cursor: pointer;
+}
+
+button.button-submit:hover, button.button-reset:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+}
+
+button.button-submit {
+    float: left;
+    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+}
+
+button.button-reset {
+    background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%);
+    float: right;
+}
+
+p.button-text {
+    margin: 5px 0;
+    font-size: 2rem;
+
+    cursor: pointer;
+}
