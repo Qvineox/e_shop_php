@@ -31,7 +31,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                     <li class="menu-article home">
                         Панель<img src="../resources/gear.svg"></li>
                 </a>
-                <a href="catalog/sections.php">
+                <a href="../items">
                     <li class="menu-article catalog">
                         Товары<img src="../../resources/flower.svg"></li>
                 </a>

@@ -54,7 +54,7 @@ if (!$uploadOk) {
     $errors[] = "Sorry, your file was not uploaded.";
 } else {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
+//        echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
     } else {
         $errors[] = "Sorry, there was an error uploading your file.";
     }
@@ -90,14 +90,22 @@ $mode = $_GET['mode'];
 if (isset($mode)) {
     if ($mode == 'edit') {
         if ($uploadOk) {
-            $query = "UPDATE article SET header='$header', text='$text', image='$image' WHERE id=$id";
+            $optional_fields[] = 'image';
+            $optional_values[] = '\'' . $image . '\'';
+
             $class = 'success';
-            $message = 'Запись полностью обновлена успешно!';
+            $message = 'Товар полностью изменен успешно!';
         } else {
-            $query = "UPDATE article SET header='$header', text='$text' WHERE id=$id";
             $class = 'warning';
-            $message = 'Запись частично обновлена!';
+            $message = 'Товар частично изменен!';
         }
+
+        $updates = array();
+        foreach ($optional_fields as $index => $field) {
+            $updates = ", $field=$optional_values[$index]";
+        }
+
+        $query = "UPDATE item SET name='$name', description='$description', purpose='$purpose', price=$price, category=$category, manufacturer=$manufacturer $updates WHERE id=$id;";
         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
     } elseif ($mode == 'add') {
         if ($uploadOk) {
@@ -115,12 +123,11 @@ if (isset($mode)) {
         $values = implode(", ", $optional_values);
 
         $query = "INSERT INTO item(name, description, purpose, price, category, manufacturer, $inserts) VALUES ('$name', '$description', '$purpose', $price, $category, $manufacturer, $values);";
-        printf($query);
         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
     } elseif ($mode = 'delete') {
-        $query = "DELETE FROM article WHERE id = '$id';";
-        $class = 'success';
-        $message = "Запись #{$id} удалена!";
+        $query = "DELETE FROM item WHERE id = '$id';";
+        $class = 'delete';
+        $message = "Товар #{$id} удален!";
         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
     }
 }
@@ -139,13 +146,13 @@ if (isset($mode)) {
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
+                <a href="../news">
+                    <li class="menu-article home">
+                        Новости<img src="../resources/newspaper.svg"></li>
+                </a>
                 <a href="../index.php">
                     <li class="menu-article home">
                         Панель<img src="../resources/gear.svg"></li>
-                </a>
-                <a href="catalog/sections.php">
-                    <li class="menu-article catalog">
-                        Товары<img src="../../resources/flower.svg"></li>
                 </a>
                 <a href="catalog/sections.php">
                     <li class="menu-article catalog" style="font-size: 29px">
@@ -175,7 +182,7 @@ if (isset($mode)) {
                         <ul style="margin: 5px 2px; list-style-type: none;">
                             <li>
                                 <a class="link recall" href="index.php">
-                                    Вернуться к новостям
+                                    Вернуться к товарам
                                 </a>
                             </li>
                             <li>

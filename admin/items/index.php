@@ -27,7 +27,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
-                <a href="news/">
+                <a href="../news">
                     <li class="menu-article home">
                         Новости<img src="../resources/newspaper.svg"></li>
                 </a>
@@ -74,7 +74,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                 <tr>
                     <td>
                         <?php
-                        $query = 'SELECT id, name, price FROM item';
+                        $query = 'SELECT id, name, price FROM item ORDER BY name ASC';
                         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                         while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {

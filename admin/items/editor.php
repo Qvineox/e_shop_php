@@ -40,13 +40,13 @@ if (isset($mode)) {
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
+                <a href="../news">
+                    <li class="menu-article home">
+                        Новости<img src="../resources/newspaper.svg"></li>
+                </a>
                 <a href="../index.php">
                     <li class="menu-article home">
                         Панель<img src="../resources/gear.svg"></li>
-                </a>
-                <a href="catalog/sections.php">
-                    <li class="menu-article catalog">
-                        Товары<img src="../../resources/flower.svg"></li>
                 </a>
                 <a href="catalog/sections.php">
                     <li class="menu-article catalog" style="font-size: 29px">
@@ -102,7 +102,7 @@ if (isset($mode)) {
                         <td style="width: 80%">
                             <input type="text" name="purpose" maxlength="50" class="item-field"
                                    style="width: 80%"
-                                   value="<?php echo @$item['name'] ?>"
+                                   value="<?php echo @$item['purpose'] ?>"
                                    placeholder="Для рисования красками" required>
                         </td>
                     </tr>
@@ -127,9 +127,15 @@ if (isset($mode)) {
                                 $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                                    echo "<option class='item-field' value='{$line['id']}'>
-                                            {$line['name']}
-                                            </option>";
+                                    if ($line['id'] !== $item['category']) {
+                                        echo "<option class='item-field' value='{$line['id']}'>
+                                                {$line['name']}
+                                                </option>";
+                                    } else {
+                                        echo "<option class='item-field' value='{$line['id']}' selected>
+                                                {$line['name']}
+                                                </option>";
+                                    }
                                 }
                                 ?>
                             </select>
@@ -146,9 +152,15 @@ if (isset($mode)) {
                                 $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                                    echo "<option class='item-field' value='{$line['id']}'>
-                                            {$line['name']}
-                                            </option>";
+                                    if ($line['id'] !== $item['manufacturer']) {
+                                        echo "<option class='item-field' value='{$line['id']}'>
+                                                {$line['name']}
+                                                </option>";
+                                    } else {
+                                        echo "<option class='item-field' value='{$line['id']}' selected>
+                                                {$line['name']}
+                                                </option>";
+                                    }
                                 }
                                 ?>
                             </select>
@@ -162,7 +174,13 @@ if (isset($mode)) {
                             <input type="number" name="quantity" max="32766" min="1" step="1"
                                    class="item-field"
                                    style="width: 20%"
-                                   value="1"
+                                <?php
+                                if (!empty($item['quantity'])) {
+                                    echo "value=\"{$item['quantity']}\"";
+                                } else {
+                                    echo "value=\"1\"";
+                                }
+                                ?>
                                    placeholder="1" required>
                         </td>
                     </tr>
@@ -174,8 +192,12 @@ if (isset($mode)) {
                             <input type="number" name="value" max="32766" min="0" step="1"
                                    class="item-field"
                                    style="width: 20%"
-                                   value="<?php echo @$item['price'] ?>"
-                                   placeholder="1">
+                                <?php
+                                if (!empty($item['value'])) {
+                                    echo "value=\"{$item['value']}\"";
+                                }
+                                ?>
+                                   placeholder="100">
                         </td>
                     </tr>
                     <tr>

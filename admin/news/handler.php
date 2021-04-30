@@ -54,7 +54,7 @@ if (!$uploadOk) {
     $errors[] = "Sorry, your file was not uploaded.";
 } else {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
+//        echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
     } else {
         $errors[] = "Sorry, there was an error uploading your file.";
     }
@@ -118,7 +118,7 @@ if (isset($mode)) {
                     <li class="menu-article home">
                         Панель<img src="../resources/gear.svg"></li>
                 </a>
-                <a href="catalog/sections.php">
+                <a href="../items">
                     <li class="menu-article catalog">
                         Товары<img src="../../resources/flower.svg"></li>
                 </a>
