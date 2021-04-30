@@ -1,12 +1,12 @@
 <html>
 <title>
-    Главная страница
+    Обработка товара
 </title>
 <style>
 
 </style>
 <link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../admin_styles.css"
+<link rel="stylesheet" href="../admin_styles.css">
 
 <?php
 $config = include('../../config.php');
@@ -14,7 +14,7 @@ $config = include('../../config.php');
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
 
-$target_dir = "../../images/news-images/";
+$target_dir = "../../images/item-images/";
 $target_file = $target_dir . @basename($_FILES["image"]["name"]);
 
 $uploadOk = False;
@@ -60,12 +60,32 @@ if (!$uploadOk) {
     }
 }
 
-$id = $_REQUEST['id'];
-$header = @$_POST['header'];
-$text = @$_POST['text'];
+$id = @$_REQUEST['id'];
+$name = @$_POST['name'];
+$description = @$_POST['description'];
+$purpose = @$_POST['purpose'];
+$category = @$_POST['category'];
+$manufacturer = @$_POST['manufacturer'];
+$quantity = @$_POST['quantity'];
+$price = @$_POST['price'];
+$value = @$_POST['value'];
+
+$optional_fields = array();
+$optional_values = array();
+
+if (!empty($quantity)) {
+    $optional_fields[] = 'quantity';
+    $optional_values[] = $quantity;
+}
+if (!empty($value)) {
+    $optional_fields[] = 'value';
+    $optional_values[] = $value;
+}
+
 $image = @htmlspecialchars(basename($_FILES["image"]["name"]));
 
 $mode = $_GET['mode'];
+
 
 if (isset($mode)) {
     if ($mode == 'edit') {
@@ -78,19 +98,24 @@ if (isset($mode)) {
             $class = 'warning';
             $message = 'Запись частично обновлена!';
         }
-
         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
     } elseif ($mode == 'add') {
-        $date = date("Y-m-d");
         if ($uploadOk) {
-            $query = "INSERT INTO article(header, text, date, image) VALUES ('$header', '$text', '$date', '$image');";
+            $optional_fields[] = 'image';
+            $optional_values[] = '\'' . $image . '\'';
+
             $class = 'success';
-            $message = 'Запись полностью добавлена успешно!';
+            $message = 'Товар полностью добавлен успешно!';
         } else {
-            $query = "INSERT INTO article(header, text, date) VALUES ('$header', '$text', '$date');";
             $class = 'warning';
-            $message = 'Запись частично добавлена!';
+            $message = 'Товар частично добавлен!';
         }
+
+        $inserts = implode(", ", $optional_fields);
+        $values = implode(", ", $optional_values);
+
+        $query = "INSERT INTO item(name, description, purpose, price, category, manufacturer, $inserts) VALUES ('$name', '$description', '$purpose', $price, $category, $manufacturer, $values);";
+        printf($query);
         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
     } elseif ($mode = 'delete') {
         $query = "DELETE FROM article WHERE id = '$id';";

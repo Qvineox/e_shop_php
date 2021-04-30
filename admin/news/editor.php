@@ -3,25 +3,10 @@
     Главная страница
 </title>
 <style>
-    p.item-field-header {
-        color: #434343;
-        font-size: 2rem;
-        margin-left: 10px;
-    }
 
-    input.item-field {
-        width: 50%;
-        height: 2rem;
-        font-size: 1.4rem;
-    }
-
-    textarea.item-field {
-        width: 50%;
-        height: 4rem;
-        font-size: 1.4rem;
-    }
 </style>
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../admin_styles.css"
 
 <?php
 $config = include('../../config.php');
@@ -73,7 +58,7 @@ if (isset($mode)) {
                 </a>
                 <a href="../../index.php">
                     <li class="menu-article admin-options">
-                        Вернуться<img src="../resources/undo.svg"></li>
+                        На главную<img src="../resources/undo.svg"></li>
                 </a>
             </ul>
         </td>

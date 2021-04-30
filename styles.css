@@ -206,10 +206,6 @@ button.submit-button {
     cursor: pointer;
 }
 
-circle#Краски:hover {
-    color: #bbbbbb;
-}
-
 .zone-header {
     text-align: start;
     color: #434343;

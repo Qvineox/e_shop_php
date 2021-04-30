@@ -1,12 +1,12 @@
 <html>
 <title>
-    Главная страница
+    Админ - Товары
 </title>
 <style>
 
 </style>
 <link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../admin_styles.css"
+<link rel="stylesheet" href="../admin_styles.css">
 
 <?php
 $config = include('../../config.php');
@@ -27,13 +27,13 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
+                <a href="news/">
+                    <li class="menu-article home">
+                        Новости<img src="../resources/newspaper.svg"></li>
+                </a>
                 <a href="../index.php">
                     <li class="menu-article home">
                         Панель<img src="../resources/gear.svg"></li>
-                </a>
-                <a href="catalog/sections.php">
-                    <li class="menu-article catalog">
-                        Товары<img src="../../resources/flower.svg"></li>
                 </a>
                 <a href="catalog/sections.php">
                     <li class="menu-article catalog" style="font-size: 29px">
@@ -58,7 +58,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                 <tr>
                                     <td>
                                         <a href="editor.php?mode=add" style="font-size: 2rem; margin: 2px 5px">Добавить
-                                            новую новость</a>
+                                            новый товар</a>
                                     </td>
                                 </tr>
                             </table>
@@ -67,23 +67,23 @@ or die('Не удалось соединиться: ' . pg_last_error());
                 </tr>
                 <tr>
                     <td colspan="2" style="border: none">
-                        <p class="zone-header">Все новостные записи</p>
+                        <p class="zone-header">Все товары</p>
                         <hr class="solid">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <?php
-                        $query = 'SELECT * FROM article';
+                        $query = 'SELECT id, name, price FROM item';
                         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                         while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                             echo "<div class=\"item\"><table><tr>
                                     <td class=\"item\">
-                                        <p class=\"item-name\">{$line['header']}</p>
+                                        <p class=\"item-name\">{$line['name']}</p>
                                     </td>
                                     <td class=\"item\">
-                                        <p class=\"item-name\">{$line['date']}</p>
+                                        <p class=\"item-name\">{$line['price']}</p>
                                     </td>
                                     <td class=\"item\">
                                     <a href='editor.php?mode=edit&id={$line['id']}'>

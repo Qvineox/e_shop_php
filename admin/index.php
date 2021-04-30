@@ -3,14 +3,10 @@
     Главная страница
 </title>
 <style>
-    div.counter {
-        border-radius: 15px;
-        display: inline-block;
-        padding: 2px 5px;
-        margin-right: 2px;
-    }
+
 </style>
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="admin_styles.css"
 
 <?php
 $config = include('../config.php');
@@ -35,7 +31,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                     <li class="menu-article home">
                         Новости<img src="resources/newspaper.svg"></li>
                 </a>
-                <a href="catalog/sections.php">
+                <a href="items">
                     <li class="menu-article catalog">
                         Товары<img src="../resources/flower.svg"></li>
                 </a>
@@ -49,7 +45,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                 </a>
                 <a href="../index.php">
                     <li class="menu-article admin-options">
-                        Вернуться<img src="resources/undo.svg"></li>
+                        На главную<img src="resources/undo.svg"></li>
                 </a>
             </ul>
         </td>

@@ -1,0 +1,93 @@
+div.counter {
+    border-radius: 15px;
+    display: inline-block;
+    padding: 2px 5px;
+    margin-right: 2px;
+}
+
+div.item {
+    border-radius: 15px;
+    border: 1px solid grey;
+    padding: 5px 10px 5px 15px;
+    margin: 2px 5px;
+}
+
+div.item:hover {
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+p.item-name {
+    font-size: 2rem;
+    margin: 0 5px;
+}
+
+img.item-edit, img.item-delete {
+    width: 50px;
+    height: 50px;
+}
+
+td.item {
+    border-right: 2px solid silver;
+}
+
+td.item:first-child {
+    width: 79%;
+}
+
+td.item:last-child, td.item:nth-child(3) {
+    width: 50px;
+    padding-left: 10px;
+    border: none;
+}
+
+div.progress {
+    border-radius: 15px;
+    margin: 5px;
+    padding: 10px 10px;
+}
+
+div.success {
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+div.warning {
+    background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+}
+
+p.message {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+a.recall {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+p.item-field-header {
+    color: #434343;
+    font-size: 2rem;
+    margin-left: 10px;
+}
+
+input.item-field {
+    width: 50%;
+    height: 2rem;
+    font-size: 1.4rem;
+    padding-left: 5px;
+}
+
+textarea.item-field {
+    width: 50%;
+    height: 4rem;
+    font-size: 1.4rem;
+    padding-left: 5px;
+}
+
+select.item-select {
+    width: 20%;
+    height: 2rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
