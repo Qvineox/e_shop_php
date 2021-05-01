@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!empty(@$_GET['exit'])) {
-    session_destroy();
+    @session_destroy();
 }
 ?>
 
@@ -118,33 +118,6 @@ if (!empty(@$_GET['exit'])) {
         </td>
         <td class="right-zone">
 
-        </td>
-    </tr>
-    <tr class="spacer" style="height: 12px"></tr>
-    <tr>
-        <td class="footer curved" colspan="3">
-            <table>
-                <tr>
-                    <td colspan="2" class="info">
-                        <p class="info" style="opacity: 80%">
-                            МИРЭА, 2021<br>
-                            Лысак Ярослав Денисович, БСБО-09-18</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="info left-footer">
-                        <p class="info" style="text-align: justify; ">Проект: eShop<br>
-                            Версия: 0.01<br>
-                            Публикация: 26.02.2021
-                        </p>
-                    </td>
-                    <td class="info right-footer">
-                        <p class="info" style="text-align: justify; ">
-                            Место для приколов
-                        </p>
-                    </td>
-                </tr>
-            </table>
         </td>
     </tr>
 </table>

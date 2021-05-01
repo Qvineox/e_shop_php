@@ -1,6 +1,10 @@
+<?php
+session_start();
+?>
+
 <html>
 <title>
-    Главная страница
+    Разделы
 </title>
 <style>
     table.item-table {
@@ -160,6 +164,12 @@ or die('Не удалось соединиться: ' . pg_last_error());
 
                         Профиль<img src="../resources/profile.svg"></li>
                 </a>
+                <?php if (@$_SESSION['is_admin'] == 't') { ?>
+                    <a href="../admin">
+                        <li class="menu-article admin">
+                            Админ<img src="../admin/resources/gear.svg"></li>
+                    </a>
+                <?php } ?>
             </ul>
         </td>
         <td class="content center-zone curved" style="vertical-align: top; padding: 0">

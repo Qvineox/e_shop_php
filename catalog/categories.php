@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 <title>
     Категории
@@ -187,6 +191,12 @@ if (isset($section)) {
 
                         Профиль<img src="../resources/profile.svg"></li>
                 </a>
+                <?php if (@$_SESSION['is_admin'] == 't') { ?>
+                    <a href="../admin">
+                        <li class="menu-article admin">
+                            Админ<img src="../admin/resources/gear.svg"></li>
+                    </a>
+                <?php } ?>
             </ul>
         </td>
         <td class="content center-zone curved" style="vertical-align: top; padding: 0">

@@ -29,6 +29,7 @@ if (isset($_SESSION['user_id'])) {
             $loginOK = True;
 
             $_SESSION['user_id'] = $client['id'];
+            $_SESSION['is_admin'] = $client['is_admin'];
         } else {
             $message = 'Указан неправильный пароль!';
         }
@@ -43,13 +44,19 @@ if (isset($_SESSION['user_id'])) {
 
 <html>
 <title>
-    Регистрация
+    <?php echo "Пользователь #{$client['id']}" ?>
 </title>
 <style>
     p.client-name {
         font-size: 2.5rem;
         color: #434343;
         margin: 5px 10px;
+    }
+
+    p.client-data {
+        font-size: 2rem;
+        color: #434343;
+        margin: 2px 5px;
     }
 
     a.button-logout {
@@ -126,6 +133,12 @@ if (isset($_SESSION['user_id'])) {
 
                         Профиль<img src="../resources/profile.svg"></li>
                 </a>
+                <?php if (@$_SESSION['is_admin'] == 't') { ?>
+                    <a href="../admin">
+                        <li class="menu-article admin">
+                            Админ<img src="../admin/resources/gear.svg"></li>
+                    </a>
+                <?php } ?>
             </ul>
         </td>
         <td class="content center-zone curved" style="vertical-align: top">
@@ -149,7 +162,7 @@ if (isset($_SESSION['user_id'])) {
                 <?php } ?>
                 <?php if (isset($client)) { ?>
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <div>
                                 <p style="display: inline-block" class="zone-header">Ваш профиль</p>
                                 <a class="button-logout" href="login.php?exit=True">
@@ -160,45 +173,63 @@ if (isset($_SESSION['user_id'])) {
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <p class="client-name">
                                 <?php echo "{$client['first_name']}  {$client['last_name']} {$client['middle_name']}" ?>
                             </p>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td>
+                            <table style="margin-top: 20px">
+                                <tr>
+                                    <td style="width: 40%">
+                                        <p class="client-data">
+                                            Электронная почта
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="client-data">
+                                            <?php echo "{$client['email']}" ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%">
+                                        <p class="client-data">
+                                            Телефон
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="client-data">
+                                            <?php echo "{$client['phone']}" ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table style="margin-top: 20px; float: right">
+                                <tr>
+                                    <td style="width: 20%">
+                                        <p class="client-data">
+                                            Персональная скидка
+                                        </p>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <p class="client-data">
+                                            <?php echo "{$client['discount']}%" ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                 <?php } ?>
             </table>
         </td>
         <td class="right-zone">
 
-        </td>
-    </tr>
-    <tr class="spacer" style="height: 12px"></tr>
-    <tr>
-        <td class="footer curved" colspan="3">
-            <table>
-                <tr>
-                    <td colspan="2" class="info">
-                        <p class="info" style="opacity: 80%">
-                            МИРЭА, 2021<br>
-                            Лысак Ярослав Денисович, БСБО-09-18</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="info left-footer">
-                        <p class="info" style="text-align: justify; ">Проект: eShop<br>
-                            Версия: 0.01<br>
-                            Публикация: 26.02.2021
-                        </p>
-                    </td>
-                    <td class="info right-footer">
-                        <p class="info" style="text-align: justify; ">
-                            Место для приколов
-                        </p>
-                    </td>
-                </tr>
-            </table>
         </td>
     </tr>
 </table>
