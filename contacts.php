@@ -1,5 +1,6 @@
 <?php
 session_start();
+$functions = include "functions.php";
 ?>
 
 <html>
@@ -70,7 +71,8 @@ session_start();
                         </tr>
                         <tr>
                             <td style="padding: 0">
-                                <p class="bin" style="font-size: 1rem;">10 товаров на $70.00</p>
+                                <p id="basket-value" class="bin"
+                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
                             </td>
                         </tr>
                     </table>

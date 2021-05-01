@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-$config = include('../config.php');
+$functions = include("../functions.php");
+$config = include("../config.php");
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
@@ -30,6 +30,7 @@ if (isset($_SESSION['user_id'])) {
 
             $_SESSION['user_id'] = $client['id'];
             $_SESSION['is_admin'] = $client['is_admin'];
+            $_SESSION['items'] = [];
         } else {
             $message = 'Указан неправильный пароль!';
         }
@@ -96,7 +97,8 @@ if (isset($_SESSION['user_id'])) {
                         </tr>
                         <tr>
                             <td style="padding: 0">
-                                <p class="bin" style="font-size: 1rem;">10 товаров на $70.00</p>
+                                <p id="basket-value" class="bin"
+                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
                             </td>
                         </tr>
                     </table>

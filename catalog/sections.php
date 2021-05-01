@@ -101,6 +101,7 @@ session_start();
 
 <?php
 $config = include('../config.php');
+$functions = include("../functions.php");
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
@@ -126,7 +127,8 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         </tr>
                         <tr>
                             <td style="padding: 0">
-                                <p class="bin" style="font-size: 1rem;">10 товаров на $70.00</p>
+                                <p id="basket-value" class="bin"
+                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
                             </td>
                         </tr>
                     </table>

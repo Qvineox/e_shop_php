@@ -69,25 +69,7 @@ VALUES ('$login', '$password_hash', '$first_name', '$last_name', '$phone', '$ema
     <tr style="align-content: center">
         <td style="width: 20rem;"></td>
         <td style="background-image: url(../resources/sun_auth.svg); height: 300px; background-repeat: no-repeat">
-            <a class="link" href="basket.php">
-                <div class="bin">
-                    <table class="bin">
-                        <tr>
-                            <td rowspan="2" style="width: 60px">
-                                <img src="../resources/basket.svg" style="height: 60px; width: 60px;">
-                            </td>
-                            <td style="padding: 0">
-                                <p class="bin" style="font-size: 1.5rem; text-decoration: underline">Ваша Корзина</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 0">
-                                <p class="bin" style="font-size: 1rem;">10 товаров на $70.00</p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </a>
+
         </td>
         <td style="width: 20rem;"></td>
     </tr>

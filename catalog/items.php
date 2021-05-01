@@ -1,5 +1,10 @@
 <?php
 session_start();
+$config = include('../config.php');
+$functions = include("../functions.php");
+
+$connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
+or die('Не удалось соединиться: ' . pg_last_error());
 ?>
 
 <html>
@@ -49,15 +54,51 @@ session_start();
     table.item-table td:not(:last-child) {
         border-right: 1px solid silver;
     }
+
+    div.item-name {
+        width: 90%;
+        display: inline-block;
+        padding: 2px 5px;
+        text-align: left;
+    }
+
+    img.add-to-cart {
+        width: 40px;
+        float: right;
+        display: inline-block;
+    }
 </style>
 <link rel="stylesheet" href="../styles.css">
 
+<script type="text/javascript" src="../jquery-3.6.0.js"></script>
+
+<script type="text/javascript">
+    $(document).ready((function () {
+        $("img.add-to-cart").click(function () {
+            let id = $(this).attr('id')
+            let name = $(this).parent().find('a').text()
+
+            alert("Вы добавили в корзину: \n" + name)
+
+            $.ajax({
+                type: "POST",
+                url: "basket_handler.php",
+                data: {
+                    item_id: id,
+                    count: 1
+                },
+                success: function (data) {
+                    data = JSON.parse(data)
+                    $(document).find('#basket-value').text(data.total_count + ' товаров на ' + data.total_price + '₽')
+                }
+            })
+
+            return false
+        })
+    }));
+</script>
+
 <?php
-$config = include('../config.php');
-
-$connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
-or die('Не удалось соединиться: ' . pg_last_error());
-
 //запрашиваем фильтры
 $manufacturers = @$_GET['manufacturers'];
 $categories = @$_GET['categories'];
@@ -132,7 +173,8 @@ if (isset($section)) {
                         </tr>
                         <tr>
                             <td style="padding: 0">
-                                <p class="bin" style="font-size: 1rem;">10 товаров на $70.00</p>
+                                <p id="basket-value" class="bin"
+                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
                             </td>
                         </tr>
                     </table>
@@ -202,10 +244,23 @@ if (isset($section)) {
 
                                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                                     echo "<tr class=\"item-row\">
-                                <td style=\"width: 50px; height: 50px\"><img style=\"width: 50px; height: 50px\" src='../images/item-images/{$line['item_image']}'></td>
-                                <td><p class=\"item-name\" style='text-align: center'>{$line['item_id']}</p></td>
-                                <td><div style='margin: 2px 10px'><a class='link' href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a></div></td>
-                                <td><div style='margin: 2px 10px'><p class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</p></div></td>
+                                <td style=\"width: 50px; height: 50px\">
+                                    <img style=\"width: 50px; height: 50px\" src='../images/item-images/{$line['item_image']}'>
+                                </td>
+                                <td>
+                                    <p class=\"item-name\" style='text-align: center'>{$line['item_id']}</p>
+                                </td>
+                                <td style='padding: 2px 5px'>
+                                    <div class='item-name''>
+                                        <a class='link' href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a>
+                                    </div>
+                                    <img id='item_{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>
+                                </td>
+                                <td>
+                                    <div style='margin: 2px 10px'>
+                                        <p class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</p>
+                                    </div>
+                                </td>
                                 <td><p class=\"item-price\">-{$line['item_price']}</p></td>
                             </tr>";
                                 }
