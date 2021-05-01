@@ -108,7 +108,7 @@ $item = pg_fetch_array($result)
                         Контакты<img src="../resources/contacts.svg"></li>
                 </a>
 
-                <a href="../account.php">
+                <a href="../auth/profile.php">
                     <li class="menu-article profile">
 
                         Профиль<img src="../resources/profile.svg"></li>

@@ -38,8 +38,7 @@ form {
     text-align: start;
 }
 
-button.button-submit, button.button-reset {
-    width: 45%;
+button.button-submit, button.button-reset, a.button-register {
     height: 50px;
     margin: 0 20px;
 
@@ -52,8 +51,8 @@ button.button-submit, button.button-reset {
     cursor: pointer;
 }
 
-button.button-submit:hover, button.button-reset:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+button.button-submit:hover, button.button-reset:hover, a.button-register:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, .5);
 }
 
 button.button-submit {
@@ -66,9 +65,26 @@ button.button-reset {
     float: right;
 }
 
+a.button-register {
+    background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+}
+
 p.button-text {
-    margin: 5px 0;
+    margin: 5px 10px;
     font-size: 2rem;
 
     cursor: pointer;
+}
+
+div.success {
+    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+}
+
+div.failure {
+    background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%);
+}
+
+div.progress p {
+    font-size: 2rem;
+    margin: 2px 5px;
 }

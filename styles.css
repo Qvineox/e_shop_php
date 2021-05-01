@@ -225,3 +225,14 @@ div.button {
     border-radius: 15px;
 }
 
+div.progress {
+    border-radius: 15px;
+    margin: 5px;
+    padding: 10px 10px;
+}
+
+a.recall {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+

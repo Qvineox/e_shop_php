@@ -99,7 +99,7 @@
                                 </label>
                             </td>
                             <td>
-                                <input id="middle_name" name="first_name" type="text"
+                                <input id="middle_name" name="middle_name" type="text"
                                        maxlength="50" placeholder="Иванович">
                             </td>
                         </tr>

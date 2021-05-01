@@ -23,9 +23,40 @@ $phone = @$_POST['phone'];
 $login = @$_POST['login'];
 $password = @$_POST['password'];
 
-$password_hash = password_hash($password, PASSWORD_DEFAULT);
-if (password_verify('123', $password_hash)) {
-    echo $password_hash;
+//начало проверок
+$registerOK = False;
+
+$check_login = "SELECT * FROM client WHERE login='$login';";
+$result = pg_query($check_login) or die ('Ошибка запроса: ' . pg_last_error());
+
+if (pg_num_rows($result) == 0) {
+    $check_email = "SELECT * FROM client WHERE email='$email';";
+    $result = pg_query($check_email) or die ('Ошибка запроса: ' . pg_last_error());
+    if (pg_num_rows($result) == 0) {
+        $check_phone = "SELECT * FROM client WHERE phone='$phone';";
+        $result = pg_query($check_phone) or die ('Ошибка запроса: ' . pg_last_error());
+        if (pg_num_rows($result) == 0) {
+            $registerOK = True;
+        } else {
+            $message = 'Учетная запись с таким телефоном уже существует!';
+        }
+    } else {
+        $message = 'Учетная запись с такой почтой уже существует!';
+    }
+} else {
+    $message = 'Учетная запись с таким логином уже существует!';
+}
+
+if ($registerOK) {
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    if (!empty($middle_name)) {
+        $query = "INSERT INTO client(login, password, first_name, last_name, middle_name, phone, email) 
+VALUES ('$login', '$password_hash', '$first_name', '$last_name', '$middle_name', '$phone', '$email');";
+    } else {
+        $query = "INSERT INTO client(login, password, first_name, last_name, phone, email) 
+VALUES ('$login', '$password_hash', '$first_name', '$last_name', '$phone', '$email');";
+    }
+    $result = pg_query($query) or die ('Ошибка запроса: ' . pg_last_error());
 }
 ?>
 
@@ -87,7 +118,50 @@ if (password_verify('123', $password_hash)) {
             </ul>
         </td>
         <td class="content center-zone curved" style="vertical-align: top">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <?php
+                        if ($registerOK) {
+                            echo "<div class=\"progress success\">
+                                        <p>Учетная запись создана!</p>
+                                    </div>";
+                        } else {
+                            echo "<div class=\"progress failure\">
+                                        <p>Создать учетную запись не удалось! {$message} </p>
+                                    </div>";
+                        }
+                        ?>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul style="margin: 5px 2px; list-style-type: none;">
+                            <?php
+                            if (!$registerOK) {
+                                echo "<li>
+                                <a class=\"link recall\" href=\"registration.php\">
+                                    Вернуться к регистрации
+                                </a>
+                            </li>";
+                            }
+                            ?>
+                            <li>
+                                <a class="link recall" href="login.php">
+                                    Войти в профиль
+                                </a>
+                            </li>
+                            <li>
+                                <a class="link recall" href="../index.php">
+                                    Вернуться на главную
+                                </a>
+                            </li>
+                        </ul>
 
+                    </td>
+                </tr>
+            </table>
         </td>
         <td class="right-zone">
 
