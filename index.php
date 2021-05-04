@@ -123,7 +123,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr style="align-content: center">
         <td style="width: 20rem;"></td>
         <td style="background-image: url(resources/sun.svg); height: 300px; background-repeat: no-repeat">
-            <a class="link" href="basket.php">
+            <a class="link" href="catalog/basket.php">
                 <div class="bin">
                     <table class="bin">
                         <tr>

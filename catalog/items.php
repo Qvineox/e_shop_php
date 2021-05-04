@@ -66,6 +66,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
         width: 40px;
         float: right;
         display: inline-block;
+        cursor: pointer;
     }
 </style>
 <link rel="stylesheet" href="../styles.css">
@@ -78,13 +79,16 @@ or die('Не удалось соединиться: ' . pg_last_error());
             let id = $(this).attr('id')
             let name = $(this).parent().find('a').text()
 
+            let substrings = id.split('_')
+
             alert("Вы добавили в корзину: \n" + name)
 
             $.ajax({
                 type: "POST",
                 url: "basket_handler.php",
                 data: {
-                    item_id: id,
+                    method: substrings[0],
+                    item_id: substrings[1],
                     count: 1
                 },
                 success: function (data) {
@@ -160,7 +164,7 @@ if (isset($section)) {
     <tr style="align-content: center">
         <td style="width: 10rem;"></td>
         <td style="background-image: url(../resources/sun_katalog.svg); height: 300px; background-repeat: no-repeat; margin-bottom: -5px">
-            <a class="link" href="../basket.php">
+            <a class="link" href="../catalog/basket.php">
                 <div class="bin">
                     <table class="bin">
                         <tr>
@@ -254,7 +258,7 @@ if (isset($section)) {
                                     <div class='item-name''>
                                         <a class='link' href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a>
                                     </div>
-                                    <img id='item_{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>
+                                    <img id='add_{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>
                                 </td>
                                 <td>
                                     <div style='margin: 2px 10px'>

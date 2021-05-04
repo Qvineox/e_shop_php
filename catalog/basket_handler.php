@@ -6,13 +6,27 @@ $config = include "../config.php";
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
 
-$item_id = str_replace('item_', "", $_POST['item_id']);
-$count = $_POST['count'];
+$item_id = $_POST['item_id'];
+$count = (int)$_POST['count'];
+$method = $_POST['method'];
 
-if (array_key_exists($item_id, $_SESSION['items'])) {
-    $_SESSION['items'][$item_id] = $_SESSION['items'][$item_id] + $count;
-} else {
-    $_SESSION['items'][$item_id] = $count;
+if (!empty($method)) {
+    if ($method == 'delete') {
+        unset($_SESSION['items'][$item_id]);
+    } elseif ($method == 'add') {
+        if (array_key_exists($item_id, $_SESSION['items'])) {
+            $_SESSION['items'][$item_id] = $_SESSION['items'][$item_id] + $count;
+        } else {
+            $_SESSION['items'][$item_id] = $count;
+        }
+    } elseif ($method == 'remove') {
+        if (array_key_exists($item_id, $_SESSION['items'])) {
+            $_SESSION['items'][$item_id] = $_SESSION['items'][$item_id] - $count;
+        }
+        if ($_SESSION['items'][$item_id] <= 0) {
+            unset($_SESSION['items'][$item_id]);
+        }
+    }
 }
 
 $total_count = 0;
