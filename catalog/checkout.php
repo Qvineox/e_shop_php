@@ -45,9 +45,9 @@ $check = True;
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    $query = "INSERT INTO commission(\"user\", first_name, last_name, phone, items) VALUES ('$user_id', '$first_name', '$last_name', '$phone', '$items_json')";
+    $query = "INSERT INTO commission(\"user\", first_name, last_name, phone, items, date) VALUES ('$user_id', '$first_name', '$last_name', '$phone', '$items_json', current_timestamp)";
 } else {
-    $query = "INSERT INTO commission(first_name, last_name, phone, items) VALUES ('$first_name', '$last_name', '$phone', '$items_json')";
+    $query = "INSERT INTO commission(first_name, last_name, phone, items, date) VALUES ('$first_name', '$last_name', '$phone', '$items_json', current_timestamp)";
 }
 $result = pg_query($query) or die ('Ошибка запроса: ' . pg_last_error());
 ?>

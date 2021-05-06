@@ -10,6 +10,8 @@ div.item {
     border: 1px solid grey;
     padding: 5px 10px 5px 15px;
     margin: 2px 5px;
+
+    cursor: inherit;
 }
 
 div.item:hover {
@@ -19,6 +21,8 @@ div.item:hover {
 p.item-name {
     font-size: 2rem;
     margin: 0 5px;
+
+    cursor: inherit;
 }
 
 img.item-edit, img.item-delete {
