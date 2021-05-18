@@ -162,7 +162,7 @@ if (isset($_SESSION['user_id'])) {
                         </td>
                     </tr>
                 <?php } ?>
-                <?php if (isset($client)) { ?>
+                <?php if (isset($_SESSION['user_id'])) { ?>
                     <tr>
                         <td colspan="2">
                             <div>
