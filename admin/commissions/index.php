@@ -73,7 +73,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                         while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                            echo "<a class='commision-link' href='commissiom?id={$line['id']}'><div class=\"item\"><table><tr>
+                            echo "<a class='commision-link' href='commission.php?id={$line['id']}'><div class=\"item\"><table><tr>
                                     <td class=\"item\">
                                         <p class=\"item-name\">Заказ №{$line['id']}</p>
                                     </td>";
