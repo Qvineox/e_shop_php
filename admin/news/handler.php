@@ -126,7 +126,7 @@ if (isset($mode)) {
                     <li class="menu-article catalog" style="font-size: 29px">
                         Пользователи<img src="../resources/user.svg"></li>
                 </a>
-                <a href="../commisions">
+                <a href="../commissions">
                     <li class="menu-article catalog">
                         Заказы<img src="../resources/money.svg"></li>
                 </a>

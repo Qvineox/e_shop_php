@@ -1,12 +1,21 @@
 <html>
 <title>
-    Главная страница
+    Админ - Заказы
 </title>
 <style>
+    .commission-link {
+        cursor: pointer;
+    }
 
+    .client-name {
+        font-size: 2rem;
+        width: fit-content;
+
+        white-space: nowrap;
+    }
 </style>
 <link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../admin_styles.css"
+<link rel="stylesheet" href="../admin_styles.css">
 
 <?php
 $config = include('../../config.php');
@@ -27,21 +36,21 @@ or die('Не удалось соединиться: ' . pg_last_error());
     <tr>
         <td class="left-zone">
             <ul class="menu" style="margin-right: 30%">
-                <a href="../index.php">
+                <a href="../news">
                     <li class="menu-article home">
-                        Панель<img src="../resources/gear.svg"></li>
+                        Новости<img src="../resources/newspaper.svg"></li>
                 </a>
                 <a href="../items">
-                    <li class="menu-article catalog">
+                    <li class="menu-article home">
                         Товары<img src="../../resources/flower.svg"></li>
                 </a>
                 <a href="../users">
                     <li class="menu-article catalog" style="font-size: 29px">
                         Пользователи<img src="../resources/user.svg"></li>
                 </a>
-                <a href="../commissions">
+                <a href="../index.php">
                     <li class="menu-article catalog">
-                        Заказы<img src="../resources/money.svg"></li>
+                        Панель<img src="../resources/gear.svg"></li>
                 </a>
                 <a href="../../index.php">
                     <li class="menu-article admin-options">
@@ -52,50 +61,32 @@ or die('Не удалось соединиться: ' . pg_last_error());
         <td class="content center-zone curved" style="vertical-align: top">
             <table>
                 <tr>
-                    <td>
-                        <div class="counter admin-options">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <a href="editor.php?mode=add" style="font-size: 2rem; margin: 2px 5px">Добавить
-                                            новую новость</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
                     <td colspan="2" style="border: none">
-                        <p class="zone-header">Все новостные записи</p>
+                        <p class="zone-header">Все заказы</p>
                         <hr class="solid">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <?php
-                        $query = 'SELECT * FROM article';
+                        $query = 'SELECT id, "user", last_name, first_name, items, date FROM commission ORDER BY date ASC';
                         $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_error());
 
                         while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                            echo "<div class=\"item\"><table><tr>
+                            echo "<a class='commision-link' href='commission.php?id={$line['id']}'><div class=\"item\"><table><tr>
                                     <td class=\"item\">
-                                        <p class=\"item-name\">{$line['header']}</p>
-                                    </td>
-                                    <td class=\"item\">
-                                        <p class=\"item-name\">{$line['date']}</p>
-                                    </td>
-                                    <td class=\"item\">
-                                    <a href='editor.php?mode=edit&id={$line['id']}'>
-                                        <img class=\"item-edit\" src=\"../resources/edit.svg\">
-                                    </a>
-                                    </td>
-                                    <td class=\"item\">
-                                    <a href='handler.php?mode=delete&id={$line['id']}'>
-                                        <img class=\"item-delete\" src=\"../resources/delete.svg\">
-                                    </a>
-                                    </td>
-                                </tr></table></div>";
+                                        <p class=\"item-name\">Заказ №{$line['id']}</p>
+                                    </td>";
+
+                            $date = date('d.m.y H:m', strtotime($line['date']));
+                            echo "<td class=\"item\">
+                                        <p style='width: 220px' class=\"item-name\">$date</p></td>
+                                    ";
+
+                            $first_name = mb_substr($line['first_name'], 0, 1, "utf-8");
+                            echo "<td class=\"item\">
+                                        <p class=\"client-name\">{$line['last_name']} $first_name.</p>
+                                        </td></tr></table></div></a>";
                         }
                         ?>
                     </td>
