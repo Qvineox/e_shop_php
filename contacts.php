@@ -1,6 +1,5 @@
 <?php
 session_start();
-$functions = include "functions.php";
 ?>
 
 <html>
@@ -52,6 +51,15 @@ $functions = include "functions.php";
 </style>
 <link rel="stylesheet" href="styles.css">
 
+<script src="/jquery.js"></script>
+<script src="/functions.js"></script>
+
+
+<script>
+    $(document).ready(
+        loadMyShoppingBin()
+    )
+</script>
 
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
@@ -72,7 +80,7 @@ $functions = include "functions.php";
                         <tr>
                             <td style="padding: 0">
                                 <p id="basket-value" class="bin"
-                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
+                                   style="font-size: 1rem;"></p>
                             </td>
                         </tr>
                     </table>

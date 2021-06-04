@@ -1,7 +1,6 @@
 <?php
 session_start();
 $config = include('../config.php');
-$functions = include("../functions.php");
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
@@ -71,35 +70,25 @@ or die('Не удалось соединиться: ' . pg_last_error());
 </style>
 <link rel="stylesheet" href="../styles.css">
 
-<script type="text/javascript" src="../jquery-3.6.0.js"></script>
+<script src="/jquery.js"></script>
+<script src="/functions.js"></script>
 
-<script type="text/javascript">
-    $(document).ready((function () {
-        $("img.add-to-cart").click(function () {
-            let id = $(this).attr('id')
-            let name = $(this).parent().find('a').text()
 
-            let substrings = id.split('_')
+<script>
+    $(document).ready(
+        function () {
+            loadMyShoppingBin()
 
-            alert("Вы добавили в корзину: \n" + name)
+            $('img.add-to-cart').click(
+                function () {
+                    let itemName = $(this).parent().find('.item-name .link').text()
+                    let itemID = $(this).attr('id')
+                    addItemToShoppingBin(itemID, itemName)
 
-            $.ajax({
-                type: "POST",
-                url: "basket_handler.php",
-                data: {
-                    method: substrings[0],
-                    item_id: substrings[1],
-                    count: 1
-                },
-                success: function (data) {
-                    data = JSON.parse(data)
-                    $(document).find('#basket-value').text(data.total_count + ' товаров на ' + data.total_price + '₽')
                 }
-            })
-
-            return false
-        })
-    }));
+            )
+        }
+    )
 </script>
 
 <?php
@@ -159,6 +148,7 @@ if (isset($section)) {
 }
 ?>
 
+
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
     <tr style="align-content: center">
@@ -178,7 +168,7 @@ if (isset($section)) {
                         <tr>
                             <td style="padding: 0">
                                 <p id="basket-value" class="bin"
-                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
+                                   style="font-size: 1rem;"></p>
                             </td>
                         </tr>
                     </table>
@@ -256,9 +246,9 @@ if (isset($section)) {
                                 </td>
                                 <td style='padding: 2px 5px'>
                                     <div class='item-name''>
-                                        <a class='link' href='item.php?id={$line['item_id']}' class=\"item-name\">{$line['item_name']}</a>
+                                        <a class='link' href='item.php?id={$line['item_id']}'>{$line['item_name']}</a>
                                     </div>
-                                    <img id='add_{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>
+                                    <img id='{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>
                                 </td>
                                 <td>
                                     <div style='margin: 2px 10px'>
@@ -397,4 +387,5 @@ if (isset($section)) {
     </tr>
 </table>
 </body>
+
 </html>

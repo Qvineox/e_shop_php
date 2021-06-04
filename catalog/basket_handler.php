@@ -1,6 +1,5 @@
 <?php
 session_start();
-$functions = include "../functions.php";
 
 $config = include "../config.php";
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")

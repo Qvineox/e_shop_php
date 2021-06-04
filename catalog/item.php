@@ -30,12 +30,27 @@ session_start();
         cursor: pointer;
     }
 
+    img.add-to-cart {
+        float: right;
+        width: 4rem;
+        cursor: pointer;
+    }
+
+    img.add-to-cart {
+        float: right;
+        background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+        border-radius: 10%;
+    }
+
+    img.add-to-cart:hover {
+        box-shadow: 0 0 11px rgba(33, 33, 33, .5);
+        background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    }
 </style>
 <link rel="stylesheet" href="../styles.css">
 
 <?php
 $config = include('../config.php');
-$functions = include("../functions.php");
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
@@ -62,6 +77,26 @@ $result = pg_query($query) or die('Ошибка запроса: ' . pg_last_erro
 $item = pg_fetch_array($result)
 ?>
 
+<script src="/jquery.js"></script>
+<script src="/functions.js"></script>
+
+
+<script>
+    $(document).ready(
+        function () {
+            loadMyShoppingBin()
+
+            $('img.add-to-cart').click(
+                function () {
+                    let itemName = $('#item-name').text()
+                    let itemID = $('#item-id').text()
+                    addItemToShoppingBin(itemID, itemName)
+                }
+            )
+        }
+    )
+</script>
+
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
     <tr style="align-content: center">
@@ -81,7 +116,7 @@ $item = pg_fetch_array($result)
                         <tr>
                             <td style="padding: 0">
                                 <p id="basket-value" class="bin"
-                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
+                                   style="font-size: 1rem;"></p>
                             </td>
                         </tr>
                     </table>
@@ -131,16 +166,18 @@ $item = pg_fetch_array($result)
             <table style="padding: 2px 10px">
                 <tr>
                     <td id="item" style="width: 75%; vertical-align: top; padding: 2px 5px">
-                        <table class="item-table">
+                        <table class="basket">
                             <tr>
                                 <td colspan="2" style="border: none">
-                                    <p class="zone-header">Товар</p>
+                                    <p class="zone-header">Товар<img class="add-to-cart"
+                                                                     src="../resources/add-to-cart.svg"></p>
+
                                     <hr class="solid">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" style="border: none">
-                                    <p class="zone-header"
+                                    <p class="zone-header" id="item-name"
                                        style="font-size: 2rem; padding: 5px 5px"><?php echo $item['item_name'] ?></p>
                                     <hr class="solid">
                                 </td>
@@ -154,7 +191,7 @@ $item = pg_fetch_array($result)
                                     <table>
                                         <tr>
                                             <td>
-                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226;">
+                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226; margin-left: 0">
                                                     Описание</p>
                                             </td>
                                         </tr>
@@ -165,7 +202,7 @@ $item = pg_fetch_array($result)
                                         </tr>
                                         <tr>
                                             <td>
-                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226;">
+                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226; margin-left: 0">
                                                     Характеристики</p>
                                             </td>
                                         </tr>
@@ -192,7 +229,7 @@ $item = pg_fetch_array($result)
                                                             </p>
                                                         </td>
                                                         <td>
-                                                            <p class="item-feature">
+                                                            <p id="item-id" class="item-feature">
                                                                 <?php echo $item['item_id'] ?>
                                                             </p>
                                                         </td>
@@ -250,6 +287,12 @@ $item = pg_fetch_array($result)
                                                     }
                                                     ?>
                                                 </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226; margin-left: 0; float: right">
+                                                    <?php echo $item['item_price'] ?>₽</p>
                                             </td>
                                         </tr>
                                     </table>

@@ -1,6 +1,5 @@
 <?php
 session_start();
-$functions = include "functions.php";
 ?>
 
 <html>
@@ -111,12 +110,23 @@ $functions = include "functions.php";
 </style>
 <link rel="stylesheet" href="styles.css">
 
+<script src="/jquery.js"></script>
+<script src="/functions.js"></script>
+
+
+<script>
+    $(document).ready(
+        loadMyShoppingBin()
+    )
+</script>
+
 <?php
 $config = include('config.php');
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
 ?>
+
 
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
@@ -137,7 +147,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                         <tr>
                             <td style="padding: 0">
                                 <p id="basket-value" class="bin"
-                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
+                                   style="font-size: 1rem;"></p>
                             </td>
                         </tr>
                     </table>
@@ -320,4 +330,6 @@ or die('Не удалось соединиться: ' . pg_last_error());
 
 </table>
 </body>
+
+
 </html>

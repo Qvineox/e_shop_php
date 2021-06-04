@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://G:/Web/.idea/Web.iml" filepath="G:/Web/.idea/Web.iml" />
+      <module fileurl="file://G:/Web/final_quests/.idea/final_quests.iml" filepath="G:/Web/final_quests/.idea/final_quests.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/localhost.iml" filepath="$PROJECT_DIR$/.idea/localhost.iml" />
     </modules>
   </component>

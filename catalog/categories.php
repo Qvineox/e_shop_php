@@ -15,7 +15,7 @@ session_start();
         margin: 0;
     }
 
-    table.item-table {
+    table.basket {
         border-spacing: 0;
     }
 
@@ -110,7 +110,6 @@ session_start();
 
 <?php
 $config = include('../config.php');
-$functions = include("../functions.php");
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
 or die('Не удалось соединиться: ' . pg_last_error());
@@ -136,6 +135,16 @@ if (isset($section)) {
 }
 ?>
 
+<script src="/jquery.js"></script>
+<script src="/functions.js"></script>
+
+
+<script>
+    $(document).ready(
+        loadMyShoppingBin()
+    )
+</script>
+
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
     <tr style="align-content: center">
@@ -155,7 +164,7 @@ if (isset($section)) {
                         <tr>
                             <td style="padding: 0">
                                 <p id="basket-value" class="bin"
-                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
+                                   style="font-size: 1rem;"></p>
                             </td>
                         </tr>
                     </table>

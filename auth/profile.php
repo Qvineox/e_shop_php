@@ -1,6 +1,5 @@
 <?php
 session_start();
-$functions = include("../functions.php");
 $config = include("../config.php");
 
 $connection = pg_connect("host={$config['host']} dbname={$config['database']} user={$config['username']} password={$config['password']}")
@@ -43,6 +42,8 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
+
+
 <html>
 <title>
     <?php echo "Пользователь #{$client['id']}" ?>
@@ -79,6 +80,16 @@ if (isset($_SESSION['user_id'])) {
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="auth_styles.css">
 
+<script src="/jquery.js"></script>
+<script src="/functions.js"></script>
+
+
+<script>
+    $(document).ready(
+        loadMyShoppingBin()
+    )
+</script>
+
 <body>
 <table width="750" cellpadding="5" cellspacing="0">
     <tr style="align-content: center">
@@ -98,7 +109,7 @@ if (isset($_SESSION['user_id'])) {
                         <tr>
                             <td style="padding: 0">
                                 <p id="basket-value" class="bin"
-                                   style="font-size: 1rem;"><?php refresh_basket() ?></p>
+                                   style="font-size: 1rem;"></p>
                             </td>
                         </tr>
                     </table>
