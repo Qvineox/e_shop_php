@@ -169,9 +169,12 @@ $item = pg_fetch_array($result)
                         <table class="basket">
                             <tr>
                                 <td colspan="2" style="border: none">
-                                    <p class="zone-header">Товар<img class="add-to-cart"
-                                                                     src="../resources/add-to-cart.svg"></p>
-
+                                    <p class="zone-header">Товар
+                                        <?php
+                                        if (isset($_SESSION['user_id'])) {
+                                            echo '<img class="add-to-cart" src="../resources/add-to-cart.svg">';
+                                        } ?>
+                                    </p>
                                     <hr class="solid">
                                 </td>
                             </tr>
@@ -191,7 +194,8 @@ $item = pg_fetch_array($result)
                                     <table>
                                         <tr>
                                             <td>
-                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226; margin-left: 0">
+                                                <p class="zone-header"
+                                                   style="font-size: 2.8rem; color: #552226; margin-left: 0">
                                                     Описание</p>
                                             </td>
                                         </tr>
@@ -202,7 +206,8 @@ $item = pg_fetch_array($result)
                                         </tr>
                                         <tr>
                                             <td>
-                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226; margin-left: 0">
+                                                <p class="zone-header"
+                                                   style="font-size: 2.8rem; color: #552226; margin-left: 0">
                                                     Характеристики</p>
                                             </td>
                                         </tr>
@@ -229,9 +234,7 @@ $item = pg_fetch_array($result)
                                                             </p>
                                                         </td>
                                                         <td>
-                                                            <p id="item-id" class="item-feature">
-                                                                <?php echo $item['item_id'] ?>
-                                                            </p>
+                                                            <p id="item-id" class="item-feature"><?php echo $item['item_id'] ?></p>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -291,7 +294,8 @@ $item = pg_fetch_array($result)
                                         </tr>
                                         <tr>
                                             <td>
-                                                <p class="zone-header" style="font-size: 2.8rem; color: #552226; margin-left: 0; float: right">
+                                                <p class="zone-header"
+                                                   style="font-size: 2.8rem; color: #552226; margin-left: 0; float: right">
                                                     <?php echo $item['item_price'] ?>₽</p>
                                             </td>
                                         </tr>

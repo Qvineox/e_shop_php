@@ -260,7 +260,7 @@ or die('Не удалось соединиться: ' . pg_last_error());
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
+                                                    <td style='text-align: center'>
                                                         <p class=\"item-price\">{$line['item_price']}₽</p>
                                                     </td>
                                                 </tr>

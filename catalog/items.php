@@ -247,15 +247,17 @@ if (isset($section)) {
                                 <td style='padding: 2px 5px'>
                                     <div class='item-name''>
                                         <a class='link' href='item.php?id={$line['item_id']}'>{$line['item_name']}</a>
-                                    </div>
-                                    <img id='{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>
-                                </td>
+                                    </div>";
+                                    if (isset($_SESSION['user_id'])) {
+                                        echo "<img id='{$line['item_id']}' class='add-to-cart' src='../resources/cart.svg'>";
+                                    }
+                                    echo "</td>
                                 <td>
                                     <div style='margin: 2px 10px'>
                                         <p class=\"item-name\" style='text-align: center'>{$line['manufacturer_name']}</p>
                                     </div>
                                 </td>
-                                <td><p class=\"item-price\">-{$line['item_price']}</p></td>
+                                <td><p class=\"item-price\">{$line['item_price']}</p></td>
                             </tr>";
                                 }
                                 ?>

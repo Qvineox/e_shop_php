@@ -110,8 +110,8 @@ div.bin {
     border: 2px solid #434343;
 
     position: fixed;
-    left: 77%;
-    top: 2%;
+    right: 5rem;
+    top: 2rem;
 
     opacity: 0.3;
     transition: 0.3s;
